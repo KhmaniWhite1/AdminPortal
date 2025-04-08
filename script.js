@@ -11,19 +11,26 @@ function registerUser() {
     users.push({ Name: name, Password: password });
     localStorage.setItem("users", JSON.stringify(users));
 
-    document.getElementById("signupMessage").innerText = `✅ Welcome, ${name}!`;
+    document.getElementById("welcomeMessage").innerText = `✅ Hello, ${name}!`;
+
+    exportToExcel();
+
+    // Redirect to Login Page after 2 seconds
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 2000);
 }
 
-function verifyLogin() {
-    let loginName = document.getElementById("loginName").value.trim();
-    let loginPassword = document.getElementById("loginPassword").value.trim();
-
+function exportToExcel() {
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    let user = users.find(u => u.Name === loginName && u.Password === loginPassword);
-
-    if (user) {
-        document.getElementById("loginMessage").innerText = `✅ Welcome, ${user.Name}!`;
-    } else {
-        document.getElementById("loginMessage").innerText = "❌ Invalid login credentials.";
+    if (users.length === 0) {
+        alert("❌ No user data found!");
+        return;
     }
+
+    let worksheet = XLSX.utils.json_to_sheet(users, { header: ["Name", "Password"] });
+    let workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Admin Logins");
+
+    XLSX.writeFile(workbook, "Admin Portal Logins.xlsx");
 }
