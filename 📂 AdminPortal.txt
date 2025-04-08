@@ -1,0 +1,9 @@
+📂 AdminPortal/
+ ├── 📄 index.html  → Home Page (Clickable images for apps)  
+ ├── 📄 login.html  → Login Page  
+ ├── 📄 signup.html  → Sign-Up Page  
+ ├── 📄 apps.html  → Apps Page (Clickable images for applications)  
+ ├── 📂 images/  → Folder for app icons & website visuals  
+ ├── 📂 styles/  → CSS files (`style.css`)  
+ ├── 📂 scripts/  → JavaScript files (`script.js`)  
+ ├── 📄 README.md → Instructions for deployment  
