@@ -22,7 +22,7 @@ function readExcelOnLogin(name, password) {
             return;
         }
 
-        let workbook = XLSX.read(storedWorkbook, { type: "binary" });
+        let workbook = XLSX.read(atob(storedWorkbook), { type: "binary" });
         let sheetName = "Admin Logins";
         let worksheet = workbook.Sheets[sheetName];
         let jsonData = XLSX.utils.sheet_to_json(worksheet);
