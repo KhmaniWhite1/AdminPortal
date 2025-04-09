@@ -1,71 +1,47 @@
-/* 🌎 Apply Forced Colors Mode for Accessibility */
-@media (forced-colors: active) {
-    body {
-        background-color: Canvas; /* ✅ Corrected background */
-        color: ButtonText;
-        font-family: Arial, sans-serif;
-        padding: 20px;
-    }
-
-    .container {
-        max-width: 400px;
-        margin: auto;
-        background: Canvas;
-        padding: 20px;
-        border-radius: 8px;
-        border: 3px solid ButtonText;
-        text-align: center;
-    }
-
-    h1 {
-        font-size: 26px;
-        font-weight: bold;
-        color: ButtonText;
-        text-shadow: 0 0 4px ButtonFace; /* ✅ Slight glow effect */
-    }
-
-    .subtext {
-        font-size: 20px;
-        margin-bottom: 20px;
-        color: ButtonText;
-    }
-
-    .btn {
-        display: inline-block;
-        padding: 14px 24px;
-        font-size: 18px;
-        text-decoration: none;
-        background: ButtonFace;
-        color: ButtonText;
-        border: 3px solid ButtonText;
-        font-weight: bold;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .btn:hover, .btn:focus {
-        background: Highlight;
-        color: HighlightText;
-        outline: 4px solid HighlightText;
-    }
-
-    /* ✅ Added keyboard focus for inputs */
-    input, textarea {
-        background: Field;
-        color: FieldText;
-        border: 2px solid ButtonText;
-        padding: 10px;
-        width: 100%;
-    }
-
-    input:focus, textarea:focus {
-        outline: 3px solid Highlight;
-    }
-}
-
-/* ✅ Improve default high-contrast styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif; /* ✅ Clean, modern fonts */
+    font-size: 18px; /* ✅ Adjusted base font size */
     margin: 0;
     padding: 20px;
     text-align: center;
+}
+
+.container {
+    max-width: 400px;
+    margin: auto;
+    background: Canvas;
+    padding: 20px;
+    border-radius: 8px;
+    border: 3px solid ButtonText;
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px; /* ✅ Larger header for emphasis */
+    font-weight: bold;
+    color: ButtonText;
+}
+
+.subtext {
+    font-size: 20px;
+    color: ButtonText;
+    font-weight: 500; /* ✅ Slightly thicker text for clarity */
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 24px;
+    font-size: 18px;
+    text-decoration: none;
+    background: ButtonFace;
+    color: ButtonText;
+    border: 3px solid ButtonText;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn:hover, .btn:focus {
+    background: Highlight;
+    color: HighlightText;
+    outline: 4px solid HighlightText;
 }
