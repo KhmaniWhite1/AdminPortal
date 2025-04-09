@@ -1,34 +1,37 @@
-/* High-Contrast Accessibility Support */
-@media (forced-colors: active) {
-    body {
-        background: Canvas;
-        color: CanvasText;
-        forced-color-adjust: none; /* Prevents unwanted adjustments */
-    }
+/* ✅ Ensure Appearance Works Across Browsers */
+appearance: none; 
+-moz-appearance: none; 
+-webkit-appearance: none;
 
-    button {
-        background: ButtonFace;
-        color: ButtonText;
-        border: 1px solid ButtonText;
-        padding: 10px;
-    }
+/* ✅ Fix Text Size Adjustment Compatibility */
+text-size-adjust: auto; /* Modern standard */
+-webkit-text-size-adjust: auto; /* Safari 9+ */
 
-    a {
-        color: LinkText;
-        text-decoration: underline;
-    }
+/* ✅ Safari Compatibility for Backdrop Filters */
+-webkit-backdrop-filter: blur(10px); /* Safari 9+ */
+backdrop-filter: blur(10px); /* Other modern browsers */
 
-    input, textarea {
-        background: Field;
-        color: FieldText;
-        border: 1px solid ButtonText;
-        padding: 10px;
-    }
+/* ✅ Ensure User Select Works in Safari */
+-webkit-user-select: none; /* Safari 3+ */
+user-select: none;
 
-    .container {
-        background: Canvas;
-        color: CanvasText;
-        padding: 20px;
-        border: 2px solid CanvasText;
-    }
+/* ✅ Specify Viewport Meta Element */
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+/* ✅ Fix Text Wrapping for Safari < 17.4 */
+text-wrap: balance; /* Standard */
+-webkit-text-wrap: balance; /* Safari Compatibility */
+
+/* ✅ Optimize Border Radius Ordering */
+-khtml-border-radius: 10px; /* KHTML compatibility */
+border-radius: 10px;
+
+/* ✅ Optimize Box Shadow Ordering */
+-khtml-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* KHTML */
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+/* ✅ Avoid Performance Issues with Height Animations */
+@keyframes exampleAnimation {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); } /* Avoid 'height' to prevent layout recalculations */
 }
