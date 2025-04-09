@@ -5,41 +5,39 @@ function exportToExcel() {
         return;
     }
 
-    // Create the worksheet with headers
     let worksheet = XLSX.utils.json_to_sheet(users, { header: ["Name", "ID #", "Password"] });
     let workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Admin Logins");
 
-    // Styling enhancements
+    // Formatting headers to look professional
     let headerStyle = {
         font: { bold: true, color: { rgb: "FFFFFF" } },
         fill: { fgColor: { rgb: "007BFF" } },
         alignment: { horizontal: "center", vertical: "center" }
     };
 
+    // Center-align all cells
     let cellStyle = {
         alignment: { horizontal: "center", vertical: "center" }
     };
 
-    // Apply styles to headers
     worksheet["A1"].s = headerStyle;
     worksheet["B1"].s = headerStyle;
     worksheet["C1"].s = headerStyle;
 
-    // Apply centering to all cells
     for (let cell in worksheet) {
         if (cell[0] !== "!" && !worksheet[cell].s) {
             worksheet[cell].s = cellStyle;
         }
     }
 
-    // Adjust column widths for readability
+    // Adjust column widths
     worksheet["!cols"] = [
-        { wch: 30 },  // Name column (wider for full names)
-        { wch: 15 },  // ID # column (fits six-digit IDs)
+        { wch: 30 },  // Name column
+        { wch: 15 },  // ID # column
         { wch: 20 }   // Password column
     ];
 
-    // Save the file
+    // Save the file with correct name
     XLSX.writeFile(workbook, "Admin Portal Logins.xlsx");
 }
