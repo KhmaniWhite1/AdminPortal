@@ -1,25 +1,30 @@
-/* Old Code (Deprecated) */
-@media (-ms-high-contrast: active) {
-    body {
-        background: black;
-        color: white;
-    }
-}
-
-/* New Code (Forced Colors Mode) */
+/* Apply styles when Forced Colors Mode is active */
 @media (forced-colors: active) {
     body {
-        forced-color-adjust: none; /* Ensures colors are controlled properly */
-        background: Canvas;
-        color: CanvasText;
+        forced-color-adjust: none; /* Prevents automatic adjustments */
+        background: Canvas; /* Uses system-defined background */
+        color: CanvasText; /* Uses system-defined text color */
     }
 
     button {
         background: ButtonFace;
         color: ButtonText;
+        border: 2px solid ButtonText;
+        padding: 10px 16px;
+        font-size: 16px;
+        border-radius: 8px;
     }
 
     a {
         color: LinkText;
+        text-decoration: underline;
+    }
+
+    input, textarea {
+        background: Field;
+        color: FieldText;
+        border: 1px solid ButtonText;
+        padding: 10px;
+        font-size: 16px;
     }
 }
