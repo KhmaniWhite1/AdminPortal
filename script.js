@@ -1,3 +1,44 @@
+function registerUser() {
+    let name = document.getElementById("regName").value.trim();
+    let password = document.getElementById("regPassword").value.trim();
+
+    if (name === "" || password === "") {
+        alert("❌ Please fill in all fields.");
+        return;
+    }
+
+    // Generate a random 6-digit ID number
+    let id = Math.floor(100000 + Math.random() * 900000);
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    users.push({ Name: name, ID: id, Password: password });
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // Display the ID # to the user
+    document.getElementById("welcomeMessage").innerText = `✅ Hello, ${name}! Your ID # is ${id}`;
+
+    exportToExcel();
+
+    // Redirect to Login Page after 2 seconds
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 2000);
+}
+
+function verifyLogin() {
+    let loginID = document.getElementById("loginID").value.trim();
+    let loginPassword = document.getElementById("loginPassword").value.trim();
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let user = users.find(u => u.ID === loginID && u.Password === loginPassword);
+
+    if (user) {
+        document.getElementById("loginMessage").innerText = `✅ Welcome, ${user.Name}!`;
+    } else {
+        document.getElementById("loginMessage").innerText = "❌ Invalid ID # or Password.";
+    }
+}
+
 function exportToExcel() {
     let users = JSON.parse(localStorage.getItem("users")) || [];
     if (users.length === 0) {
@@ -9,14 +50,13 @@ function exportToExcel() {
     let workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Admin Logins");
 
-    // Formatting headers to look professional
+    // Formatting headers for elegance
     let headerStyle = {
         font: { bold: true, color: { rgb: "FFFFFF" } },
         fill: { fgColor: { rgb: "007BFF" } },
         alignment: { horizontal: "center", vertical: "center" }
     };
 
-    // Center-align all cells
     let cellStyle = {
         alignment: { horizontal: "center", vertical: "center" }
     };
@@ -31,13 +71,13 @@ function exportToExcel() {
         }
     }
 
-    // Adjust column widths
+    // Ensure column widths are readable
     worksheet["!cols"] = [
         { wch: 30 },  // Name column
         { wch: 15 },  // ID # column
         { wch: 20 }   // Password column
     ];
 
-    // Save the file with correct name
+    // Save the file correctly
     XLSX.writeFile(workbook, "Admin Portal Logins.xlsx");
 }
