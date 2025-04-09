@@ -1,15 +1,51 @@
-<script>
-document.getElementById("loginForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const name = document.getElementById("loginName").value.trim();
-    const password = document.getElementById("loginPassword").value.trim();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to CSS -->
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="loginName" placeholder="Enter Name" required>
+            <input type="password" id="loginPassword" placeholder="Enter Password" required>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <p class="subtext">Don't have an account? <a href="signup.html" class="link">Sign Up Here</a></p>
+    </div>
 
-    const response = await fetch("http://127.0.0.1:5000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, password }) // ✅ Sending data for verification
+    <script>
+    document.getElementById("loginForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const name = document.getElementById("loginName").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
+
+        if (!name || !password) {
+            alert("❌ Please provide both name and password.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://127.0.0.1:5000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, password })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert(result.message || "✅ Login successful!");
+            } else {
+                const errorResult = await response.json();
+                alert(errorResult.error || "❌ Login failed.");
+            }
+        } catch (error) {
+            console.error("Error during login:", error);
+            alert("❌ Unable to connect to the server. Please try again later.");
+        }
     });
-    const result = await response.json();
-    alert(result.message || result.error); // ✅ Displaying server response
-});
-</script>
+    </script>
+</body>
+</html>
