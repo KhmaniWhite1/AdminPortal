@@ -1,64 +1,24 @@
-function exportToExcel() {
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    if (users.length === 0) {
-        alert("❌ No user data found!");
-        return;
-    }
-
-    let exportedUsers = users.map(user => ({
-        Name: user.Name,
-        ID: user.ID,
-        Password: atob(user.Password)
-    }));
-
-    let existingWorkbook;
-    try {
-        let storedWorkbook = localStorage.getItem("Admin Portal Logins.xlsx");
-        if (storedWorkbook) {
-            existingWorkbook = XLSX.read(storedWorkbook, { type: "binary" });
-        } else {
-            existingWorkbook = XLSX.utils.book_new();
-        }
-    } catch (error) {
-        console.warn("⚠ No existing Excel file found, creating a new one.");
-        existingWorkbook = XLSX.utils.book_new();
-    }
-
-    let sheetName = "Admin Logins";
-    let worksheet = existingWorkbook.Sheets[sheetName] || XLSX.utils.json_to_sheet([]);
-    
-    let updatedData = XLSX.utils.sheet_to_json(worksheet).concat(exportedUsers);
-    worksheet = XLSX.utils.json_to_sheet(updatedData);
-    XLSX.utils.book_append_sheet(existingWorkbook, worksheet, sheetName);
-
-    let excelBinary = XLSX.write(existingWorkbook, { bookType: "xlsx", type: "binary" });
-    localStorage.setItem("Admin Portal Logins.xlsx", excelBinary);
-
-    alert("✅ New users have been added! Data is stored but not downloaded.");
-}
-
-// Function to manually download the Excel file when needed
+// Function to manually download the Excel file (One-Time)
 function downloadExcelFile() {
     try {
-        let storedWorkbook = localStorage.getItem("Admin Portal Logins.xlsx");
+        let storedWorkbook = localStorage.getItem("Admin Login Sheet.xlsx");
         if (!storedWorkbook) {
             alert("❌ No Excel file found in local storage.");
             return;
         }
 
         let workbook = XLSX.read(storedWorkbook, { type: "binary" });
-        let fileName = "Admin Portal Logins.xlsx";
+        let fileName = "Admin Login Sheet.xlsx";
 
         XLSX.writeFile(workbook, fileName);
         alert(`✅ "${fileName}" has been downloaded!`);
-
     } catch (error) {
         console.error("Excel Download Error:", error);
         alert("❌ Failed to download Excel file.");
     }
 }
 
-// Call `exportToExcel()` after each user signs up to store data without downloading
+// Function to add a new user without redownloading Excel
 function registerUser(event) {
     event.preventDefault();
 
@@ -77,10 +37,50 @@ function registerUser(event) {
     users.push({ Name: name, ID: id, Password: hashedPassword });
     localStorage.setItem("users", JSON.stringify(users));
 
-    alert(`✅ Hello, ${name}! Your account has been created successfully.`);
+    alert(`✅ Hello, ${name}! Your ID # is ${id}. Your account has been created successfully.`);
 
     setTimeout(() => {
-        exportToExcel(); // Store new user data
+        updateExcelData(); // Store new user data without downloading
         window.location.href = "login.html"; // Redirect after sign-up
     }, 2000);
+}
+
+// Function to update stored Excel data (without downloading)
+function updateExcelData() {
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if (users.length === 0) {
+        alert("❌ No user data found!");
+        return;
+    }
+
+    let exportedUsers = users.map(user => ({
+        Name: user.Name,
+        ID: user.ID,
+        Password: atob(user.Password)
+    }));
+
+    let existingWorkbook;
+    try {
+        let storedWorkbook = localStorage.getItem("Admin Login Sheet.xlsx");
+        if (storedWorkbook) {
+            existingWorkbook = XLSX.read(storedWorkbook, { type: "binary" });
+        } else {
+            existingWorkbook = XLSX.utils.book_new();
+        }
+    } catch (error) {
+        console.warn("⚠ No existing Excel file found, creating a new one.");
+        existingWorkbook = XLSX.utils.book_new();
+    }
+
+    let sheetName = "Admin Logins";
+    let worksheet = existingWorkbook.Sheets[sheetName] || XLSX.utils.json_to_sheet([]);
+    
+    let updatedData = XLSX.utils.sheet_to_json(worksheet).concat(exportedUsers);
+    worksheet = XLSX.utils.json_to_sheet(updatedData);
+    XLSX.utils.book_append_sheet(existingWorkbook, worksheet, sheetName);
+
+    let excelBinary = XLSX.write(existingWorkbook, { bookType: "xlsx", type: "binary" });
+    localStorage.setItem("Admin Login Sheet.xlsx", excelBinary);
+
+    alert("✅ New users have been added! Data is stored but not downloaded.");
 }
