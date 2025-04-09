@@ -1,11 +1,13 @@
-/* High-Contrast Accessibility Support */
 @media (forced-colors: active) {
     body {
-        background: Canvas;
-        color: CanvasText;
-        forced-color-adjust: none; /* Prevents unwanted adjustments */
+        background-color: ButtonFace; /* Uses system-defined colors */
+        color: ButtonText;
     }
 
+    a {
+        text-decoration: underline;
+    }
+}
     button {
         background: ButtonFace;
         color: ButtonText;
