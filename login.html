@@ -1,23 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+    <script defer src="login.js"></script>
 </head>
 <body>
-    <div class="container">
-        <h2>Login</h2>
-
-        <input type="text" id="loginID" placeholder="Enter Your ID #">
-        <input type="password" id="loginPassword" placeholder="Enter Your Password">
-        <button onclick="verifyLogin()" class="btn">Login</button>
-        <p id="loginMessage"></p>
-
-        <hr>
-        <p class="subtext">New here? Click below to sign up:</p>
-        <a href="signup.html" class="btn-alt">Click Here To Sign Up</a>
-    </div>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="text" id="loginName" placeholder="Enter Name" required>
+        <input type="password" id="loginPassword" placeholder="Enter Password" required>
+        <button type="submit">Login</button>
+    </form>
 </body>
 </html>
