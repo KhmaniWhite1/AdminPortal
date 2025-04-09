@@ -29,7 +29,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* ✅ Adds equal spacing between input fields */
+    gap: 40px; /* ✅ Adds equal spacing between input fields */
 }
 
 input {
@@ -39,7 +39,7 @@ input {
     border-radius: 15px;
     padding: 15px;
     box-sizing: border-box;
-    margin-bottom: 20px; /* ✅ Extra space between inputs */
+    margin-bottom: 40px; /* ✅ Extra space between inputs */
 }
 
 input {
