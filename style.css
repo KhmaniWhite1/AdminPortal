@@ -1,57 +1,50 @@
 /* 🌎 Apply Forced Colors Mode for Accessibility */
 @media (forced-colors: active) {
     body {
-        background-color: ButtonFace; /* Uses system-defined colors */
+        background-color: CanvasText; /* ✅ High contrast text */
+        color: ButtonText;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: auto;
+        background: Canvas;
+        padding: 20px;
+        border-radius: 8px;
+        border: 3px solid ButtonText;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 26px;
+        font-weight: bold;
+        color: ButtonText;
+        text-shadow: 0 0 4px ButtonFace; /* ✅ Slight glow effect */
+    }
+
+    .subtext {
+        font-size: 20px;
+        margin-bottom: 20px;
         color: ButtonText;
     }
 
-    a {
-        text-decoration: underline;
-        color: LinkText;
-    }
-
-    button {
+    .btn {
+        display: inline-block;
+        padding: 14px 24px;
+        font-size: 18px;
+        text-decoration: none;
         background: ButtonFace;
         color: ButtonText;
-        border: 1px solid ButtonText;
-        padding: 10px;
+        border: 3px solid ButtonText;
+        font-weight: bold;
+        transition: all 0.3s ease-in-out;
     }
 
-    input, textarea {
-        background: Field;
-        color: FieldText;
-        border: 1px solid ButtonText;
-        padding: 10px;
+    .btn:hover, .btn:focus {
+        background: Highlight;
+        color: HighlightText;
+        outline: 4px solid HighlightText;
     }
 }
-
-/* ✅ Ensure UI Appearance Works Across Browsers */
-* {
-    appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-}
-
-/* ✅ Fix Text Size Adjustment Compatibility */
-text-size-adjust: auto; /* Modern standard */
--webkit-text-size-adjust: auto; /* Safari fix */
-
-/* ✅ Safari Compatibility for Backdrop Filters */
--webkit-backdrop-filter: blur(10px); /* Safari 9+ */
-backdrop-filter: blur(10px); /* Other modern browsers */
-
-/* ✅ Ensure User Select Works in Safari */
--webkit-user-select: none; /* Safari 3+ */
-user-select: none;
-
-/* ✅ Fix Mask Image Compatibility for Edge */
--webkit-mask-image: url('mask.png'); /* Edge 79+ */
-mask-image: url('mask.png');
-
-/* ✅ Fix Mask Position Compatibility */
--webkit-mask-position: center;
-mask-position: center;
-
-/* ✅ Fix Mask Repeat Compatibility */
--webkit-mask-repeat: no-repeat;
-mask-repeat: no-repeat;
