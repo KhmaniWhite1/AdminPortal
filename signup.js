@@ -21,12 +21,12 @@ function registerUser(event) {
     alert(`✅ Hello, ${name}! Your ID # is ${id}. Your account has been created successfully.`);
 
     setTimeout(() => {
-        updateExcelData(); // Store data without downloading
+        updateExcelData(); // Store new user data without downloading
+        downloadExcelFile(); // Downloads Excel file once on the first signup
         window.location.href = "login.html"; // Redirect after sign-up
     }, 2000);
 }
 
-// Function to update stored Excel data without re-downloading
 function updateExcelData() {
     let users = JSON.parse(localStorage.getItem("users")) || [];
     if (users.length === 0) {
@@ -50,23 +50,21 @@ function updateExcelData() {
     }
 
     let sheetName = "Admin Logins";
-    
-    // Remove old sheet to prevent duplicates
+
     if (existingWorkbook.Sheets[sheetName]) {
         delete existingWorkbook.Sheets[sheetName];
+        existingWorkbook.SheetNames = existingWorkbook.SheetNames.filter(name => name !== sheetName);
     }
 
     let worksheet = XLSX.utils.json_to_sheet(exportedUsers);
     XLSX.utils.book_append_sheet(existingWorkbook, worksheet, sheetName);
 
-    // Convert to Base64 before saving to localStorage
     let excelBinary = XLSX.write(existingWorkbook, { bookType: "xlsx", type: "binary" });
     localStorage.setItem("Admin Login Sheet.xlsx", btoa(excelBinary));
 
     alert("✅ New users have been added! Data is stored but not downloaded.");
 }
 
-// Function to download the Excel file manually when needed
 function downloadExcelFile() {
     try {
         let storedWorkbook = localStorage.getItem("Admin Login Sheet.xlsx");
