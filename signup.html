@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css"> <!-- ✅ Added CSS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
     <script defer src="signup.js"></script>
 </head>
 <body>
-    <h2>Sign Up</h2>
-    <form id="signUpForm">
-        <input type="text" id="regName" placeholder="Enter Name" required>
-        <input type="password" id="regPassword" placeholder="Enter Password" required>
-        <button type="submit">Create Account</button>
-    </form>
-
-    <p>Already have an account? <a href="login.html">Login Here</a></p> <!-- 🔗 Login Link -->
+    <div class="container"> <!-- ✅ Styled container -->
+        <h2>Sign Up</h2>
+        <form id="signUpForm">
+            <input type="text" id="regName" placeholder="Enter Name" required>
+            <input type="password" id="regPassword" placeholder="Enter Password" required>
+            <button type="submit" class="btn">Create Account</button> <!-- ✅ Styled button -->
+        </form>
+        <p class="subtext">Already have an account? <a href="login.html" class="link">Login Here</a></p> <!-- ✅ Styled link -->
+    </div>
 </body>
 </html>
