@@ -2,17 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <script src="scripts/script.js"></script>
-    <link rel="stylesheet" href="styles/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h2>Login</h2>
-    <input type="text" id="loginName" placeholder="Enter Name">
-    <input type="password" id="loginPassword" placeholder="Enter Password">
-    <button onclick="verifyLogin()">Login</button>
-    <p id="loginMessage"></p>
+    <div class="container">
+        <h2>Login</h2>
+
+        <input type="text" id="loginID" placeholder="Enter Your ID #">
+        <input type="password" id="loginPassword" placeholder="Enter Your Password">
+        <button onclick="verifyLogin()" class="btn">Login</button>
+        <p id="loginMessage"></p>
+
+        <hr> <!-- Divider for clean layout -->
+
+        <p class="subtext">New here? Click below to sign up:</p>
+        <a href="signup.html" class="btn-alt">Click Here To Sign Up</a>
+    </div>
 
 </body>
 </html>
