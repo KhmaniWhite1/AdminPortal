@@ -1,19 +1,46 @@
-<script>
-document.getElementById("signUpForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const name = document.getElementById("regName").value.trim();
-    const password = document.getElementById("regPassword").value.trim();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="style.css"> <!-- Link to CSS -->
+</head>
+<body>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <form id="signUpForm">
+            <input type="text" id="regName" placeholder="Enter Name" required>
+            <input type="password" id="regPassword" placeholder="Enter Password" required>
+            <button type="submit" class="btn">Create Account</button>
+        </form>
+        <p class="subtext">Already have an account? <a href="login.html" class="link">Login Here</a></p>
+    </div>
 
-    if (name && password) {
-        const response = await fetch("http://127.0.0.1:5000/signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, password }) // ✅ Sending data to server
-        });
-        const result = await response.json();
-        alert(result.message);
-    } else {
-        alert("❌ Please fill in all fields.");
-    }
-});
-</script>
+    <script>
+    document.getElementById("signUpForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const name = document.getElementById("regName").value.trim();
+        const password = document.getElementById("regPassword").value.trim();
+
+        if (!name || !password) {
+            alert("❌ Please provide both name and password.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://127.0.0.1:5000/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, password })
+            });
+
+            const result = await response.json();
+            alert(result.message || "✅ Signup successful!");
+        } catch (error) {
+            console.error("Error during signup:", error);
+            alert("❌ Unable to connect to the server. Please try again later.");
+        }
+    });
+    </script>
+</body>
+</html>
