@@ -1,7 +1,7 @@
-/* Modern Accessibility Support */
+/* High-Contrast Accessibility Support */
 @media (forced-colors: active) {
     body {
-        forced-color-adjust: none; /* Prevents automatic adjustments */
+        forced-color-adjust: none; /* Prevents unwanted adjustments */
         background: Canvas;
         color: CanvasText;
     }
@@ -9,11 +9,10 @@
     button {
         background: ButtonFace;
         color: ButtonText;
-        border: 2px solid ButtonText;
-        padding: 12px 18px;
-        font-size: 18px;
-        border-radius: 6px;
-        cursor: pointer;
+        border: 1px solid ButtonText;
+        padding: 10px;
+        font-size: 16px;
+        text-align: center;
     }
 
     a {
@@ -25,7 +24,8 @@
         background: Field;
         color: FieldText;
         border: 1px solid ButtonText;
-        padding: 12px;
-        font-size: 18px;
+        padding: 10px;
+        font-size: 16px;
+        text-align: left; /* Keeps standard alignment */
     }
 }
