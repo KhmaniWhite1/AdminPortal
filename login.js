@@ -28,4 +28,3 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
         alert("❌ Failed to communicate with the server.");
     }
 });
-
