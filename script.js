@@ -1,41 +1,3 @@
-function registerUser() {
-    let name = document.getElementById("regName").value.trim();
-    let password = document.getElementById("regPassword").value.trim();
-
-    if (name === "" || password === "") {
-        alert("❌ Please fill in all fields.");
-        return;
-    }
-
-    // Generate a random 6-digit ID number
-    let id = Math.floor(100000 + Math.random() * 900000).toString(); // Ensure ID # is a string
-
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push({ Name: name, ID: id, Password: password });
-    localStorage.setItem("users", JSON.stringify(users));
-
-    document.getElementById("welcomeMessage").innerText = `✅ Hello, ${name}! Your ID # is ${id}`;
-
-    setTimeout(() => {
-        exportToExcel();
-        window.location.href = "login.html";
-    }, 2000);
-}
-
-function verifyLogin() {
-    let loginID = document.getElementById("loginID").value.trim();
-    let loginPassword = document.getElementById("loginPassword").value.trim();
-
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    let user = users.find(u => u.ID === loginID && u.Password === loginPassword);
-
-    if (user) {
-        document.getElementById("loginMessage").innerText = `✅ Welcome, ${user.Name}!`;
-    } else {
-        document.getElementById("loginMessage").innerText = "❌ Invalid ID # or Password.";
-    }
-}
-
 function exportToExcel() {
     let users = JSON.parse(localStorage.getItem("users")) || [];
     if (users.length === 0) {
@@ -43,40 +5,19 @@ function exportToExcel() {
         return;
     }
 
-    let worksheet = XLSX.utils.json_to_sheet(users, { header: ["Name", "ID #", "Password"] });
+    // Prepare data for export (decoding stored passwords)
+    let exportedUsers = users.map(user => ({
+        Name: user.Name,
+        ID: user.ID,
+        Password: atob(user.Password) // Decode the basic hashed password
+    }));
+
+    let worksheet = XLSX.utils.json_to_sheet(exportedUsers);
     let workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Admin Logins");
 
-    // Ensure headers are elegant
-    let headerStyle = {
-        font: { bold: true, color: { rgb: "FFFFFF" } },
-        fill: { fgColor: { rgb: "007BFF" } },
-        alignment: { horizontal: "center", vertical: "center" }
-    };
+    // Save the file with a structured name
+    XLSX.writeFile(workbook, "Admin_Portal_Logins.xlsx");
 
-    let cellStyle = {
-        alignment: { horizontal: "center", vertical: "center" }
-    };
-
-    worksheet["A1"].s = headerStyle;
-    worksheet["B1"].s = headerStyle;
-    worksheet["C1"].s = headerStyle;
-
-    for (let cell in worksheet) {
-        if (cell[0] !== "!" && !worksheet[cell].s) {
-            worksheet[cell].s = cellStyle;
-        }
-    }
-
-    // Set proper column widths
-    worksheet["!cols"] = [
-        { wch: 30 },  // Name column
-        { wch: 15 },  // ID # column
-        { wch: 20 }   // Password column
-    ];
-
-    // Save the file correctly
-    XLSX.writeFile(workbook, "Admin Portal Logins.xlsx");
-
-    alert("✅ Admin Portal Logins.xlsx has been downloaded!"); // Notify user
+    alert("✅ Excel file has been successfully downloaded!");
 }
