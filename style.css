@@ -1,9 +1,9 @@
-/* High-Contrast Accessibility Support */
+/* Modern Accessibility Support */
 @media (forced-colors: active) {
     body {
-        forced-color-adjust: none; /* Prevents unwanted adjustments */
-        background: Canvas;
-        color: CanvasText;
+        forced-color-adjust: none; /* Prevents automatic adjustments */
+        background: Canvas; /* Uses system-defined background */
+        color: CanvasText; /* Uses system-defined text color */
     }
 
     button {
@@ -13,6 +13,7 @@
         padding: 10px;
         font-size: 16px;
         text-align: center;
+        width: 100%;
     }
 
     a {
@@ -26,6 +27,29 @@
         border: 1px solid ButtonText;
         padding: 10px;
         font-size: 16px;
-        text-align: left; /* Keeps standard alignment */
+        text-align: left;
+        width: 100%;
+    }
+
+    /* Containers */
+    .container {
+        background: Canvas;
+        color: CanvasText;
+        padding: 20px;
+        border: 2px solid CanvasText;
+        border-radius: 8px;
+    }
+
+    /* Headings */
+    h1, h2, h3 {
+        font-weight: bold;
+        color: CanvasText;
+    }
+
+    /* Forms */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
     }
 }
