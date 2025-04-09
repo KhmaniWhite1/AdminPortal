@@ -1,9 +1,8 @@
-/* Modern Accessibility Support */
+/* High-Contrast Mode Support */
 @media (forced-colors: active) {
     body {
-        forced-color-adjust: none; /* Prevents automatic adjustments */
-        background: Canvas; /* Uses system-defined background */
-        color: CanvasText; /* Uses system-defined text color */
+        background: Canvas;
+        color: CanvasText;
     }
 
     button {
@@ -11,14 +10,10 @@
         color: ButtonText;
         border: 1px solid ButtonText;
         padding: 10px;
-        font-size: 16px;
-        text-align: center;
-        width: 100%;
     }
 
     a {
         color: LinkText;
-        text-decoration: underline;
     }
 
     input, textarea {
@@ -26,30 +21,5 @@
         color: FieldText;
         border: 1px solid ButtonText;
         padding: 10px;
-        font-size: 16px;
-        text-align: left;
-        width: 100%;
-    }
-
-    /* Containers */
-    .container {
-        background: Canvas;
-        color: CanvasText;
-        padding: 20px;
-        border: 2px solid CanvasText;
-        border-radius: 8px;
-    }
-
-    /* Headings */
-    h1, h2, h3 {
-        font-weight: bold;
-        color: CanvasText;
-    }
-
-    /* Forms */
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
     }
 }
