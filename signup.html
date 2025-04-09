@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign-Up</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.4/xlsx.full.min.js"></script>
     <script src="scripts/script.js"></script>
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
 
-    <h2>Sign-Up</h2>
-    <input type="text" id="regName" placeholder="Enter Name">
-    <input type="password" id="regPassword" placeholder="Enter Password">
-    <button onclick="registerUser()">Sign Up</button>
-    
-    <h3 id="welcomeMessage"></h3>
+    <div class="container">
+        <h2>Sign-Up</h2>
+
+        <input type="text" id="regName" placeholder="Name (Last, First Middle Initial)">
+        <input type="password" id="regPassword" placeholder="Enter Your Password">
+        <button onclick="registerUser()">Sign Up</button>
+
+        <h3 id="welcomeMessage"></h3>
+    </div>
 
 </body>
 </html>
