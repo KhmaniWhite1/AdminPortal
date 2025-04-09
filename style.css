@@ -9,11 +9,11 @@
 
 /* Make input fields and buttons uniform in size */
 input, button {
-    width: 100%;
-    height: 55px; /* ✅ Slightly taller */
-    font-size: 18px; /* ✅ Increased font size */
-    border-radius: 8px; /* ✅ More rounded edges */
-    padding: 12px;
+    width: 120%;
+    height: 60px; /* ✅ Slightly taller */
+    font-size: 20px; /* ✅ Increased font size */
+    border-radius: 15px; /* ✅ More rounded edges */
+    padding: 15px;
     box-sizing: border-box;
 }
 
