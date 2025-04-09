@@ -11,16 +11,15 @@ function registerUser() {
     let id = Math.floor(100000 + Math.random() * 900000);
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push({ Name: name, ID: id, Password: password });
+    users.push({ Name: name, ID: id.toString(), Password: password }); // Convert ID to string for consistency
     localStorage.setItem("users", JSON.stringify(users));
 
     // Display the ID # to the user
     document.getElementById("welcomeMessage").innerText = `✅ Hello, ${name}! Your ID # is ${id}`;
 
-    exportToExcel();
-
-    // Redirect to Login Page after 2 seconds
+    // Ensure Excel file gets created
     setTimeout(() => {
+        exportToExcel();
         window.location.href = "login.html";
     }, 2000);
 }
@@ -50,7 +49,7 @@ function exportToExcel() {
     let workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Admin Logins");
 
-    // Formatting headers for elegance
+    // Ensure headers are elegant
     let headerStyle = {
         font: { bold: true, color: { rgb: "FFFFFF" } },
         fill: { fgColor: { rgb: "007BFF" } },
@@ -71,7 +70,7 @@ function exportToExcel() {
         }
     }
 
-    // Ensure column widths are readable
+    // Set proper column widths
     worksheet["!cols"] = [
         { wch: 30 },  // Name column
         { wch: 15 },  // ID # column
@@ -80,4 +79,6 @@ function exportToExcel() {
 
     // Save the file correctly
     XLSX.writeFile(workbook, "Admin Portal Logins.xlsx");
+
+    alert("✅ Admin Portal Logins.xlsx has been downloaded!"); // Notify user
 }
