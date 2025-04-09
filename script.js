@@ -8,16 +8,14 @@ function registerUser() {
     }
 
     // Generate a random 6-digit ID number
-    let id = Math.floor(100000 + Math.random() * 900000);
+    let id = Math.floor(100000 + Math.random() * 900000).toString(); // Ensure ID # is a string
 
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push({ Name: name, ID: id.toString(), Password: password }); // Convert ID to string for consistency
+    users.push({ Name: name, ID: id, Password: password });
     localStorage.setItem("users", JSON.stringify(users));
 
-    // Display the ID # to the user
     document.getElementById("welcomeMessage").innerText = `✅ Hello, ${name}! Your ID # is ${id}`;
 
-    // Ensure Excel file gets created
     setTimeout(() => {
         exportToExcel();
         window.location.href = "login.html";
