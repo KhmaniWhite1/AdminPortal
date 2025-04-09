@@ -1,48 +1,45 @@
-/* Center everything in the middle of the screen */
+/* Center everything on screen */
 body {
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
     font-size: 18px;
     margin: 0;
     padding: 0;
-    display: flex; /* ✅ Flexbox for centering */
-    justify-content: center; /* ✅ Horizontal centering */
-    align-items: center; /* ✅ Vertical centering */
-    height: 100vh; /* ✅ Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
     background-color: Canvas;
     color: ButtonText;
 }
 
-/* Make the container bigger & centered */
+/* Styled container for login & signup */
 .container {
-    width: 400px;
+    width: 450px; /* Wider for better spacing */
     padding: 40px;
     border-radius: 10px;
     background: Canvas;
     border: 3px solid ButtonText;
     text-align: center;
     display: flex;
-    flex-direction: column; /* ✅ Ensures everything is stacked */
-    align-items: center; /* ✅ Centers inside container */
+    flex-direction: column;
+    align-items: center;
 }
 
-/* ✅ Apply proper spacing for input fields */
+/* Form styling */
 form {
     display: flex;
     flex-direction: column;
-    gap: 40px; /* ✅ Adds equal spacing between input fields */
+    gap: 20px; /* Spacing between input fields */
 }
 
+/* Input fields */
 input {
     width: 100%;
-    height: 60px; /* ✅ Increased input size */
+    height: 60px;
     font-size: 20px;
     border-radius: 15px;
     padding: 15px;
     box-sizing: border-box;
-    margin-bottom: 40px; /* ✅ Extra space between inputs */
-}
-
-input {
     background: Field;
     color: FieldText;
     border: 2px solid ButtonText;
@@ -52,13 +49,12 @@ input:focus {
     outline: 3px solid Highlight;
 }
 
-/* ✅ Improve button styling */
-button {
+/* Buttons */
+.btn {
     width: 100%;
-    height: 60px; /* ✅ Same size as inputs */
+    height: 60px;
     font-size: 20px;
     border-radius: 15px;
-    padding: 15px;
     background: ButtonFace;
     color: ButtonText;
     border: 2px solid ButtonText;
@@ -66,7 +62,19 @@ button {
     transition: all 0.3s ease-in-out;
 }
 
-button:hover {
+.btn:hover {
     background: Highlight;
     color: HighlightText;
+}
+
+/* Links */
+.subtext {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+.link {
+    color: LinkText;
+    text-decoration: underline;
+    cursor: pointer;
 }
