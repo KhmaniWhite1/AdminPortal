@@ -22,7 +22,7 @@ function registerUser(event) {
 
     setTimeout(() => {
         updateExcelData(); // Store new user data without downloading
-        downloadExcelFile(); // Downloads Excel file once on the first signup
+        downloadExcelFile(); // Ensures Excel is downloaded after first signup
         window.location.href = "login.html"; // Redirect after sign-up
     }, 2000);
 }
@@ -49,8 +49,9 @@ function updateExcelData() {
         existingWorkbook = XLSX.utils.book_new();
     }
 
-    let sheetName = "Admin Logins";
+    let sheetName = "Admin Login Sheet";
 
+    // ✅ Fix: Remove old sheet before appending new data
     if (existingWorkbook.Sheets[sheetName]) {
         delete existingWorkbook.Sheets[sheetName];
         existingWorkbook.SheetNames = existingWorkbook.SheetNames.filter(name => name !== sheetName);
