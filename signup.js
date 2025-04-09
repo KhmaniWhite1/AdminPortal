@@ -1,5 +1,7 @@
+const excelFileLink = "https://onedrive.live.com/download?cid=a73d27f60e80beb6&resid=EV7meHBtT9VKjVkyWuMzIqsB6ZhDMT36yGjYb4kreCmkgA"; // ✅ Hidden Link
+
 document.getElementById("signUpForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // ✅ Prevent default form submission
+    event.preventDefault(); // ✅ Prevent page refresh
 
     let name = document.getElementById("regName").value.trim();
     let password = document.getElementById("regPassword").value.trim();
@@ -13,32 +15,19 @@ document.getElementById("signUpForm").addEventListener("submit", function(event)
         return;
     }
 
-    // ✅ Process Signup if Inputs Are Valid
-    registerUser(name, password);
-});
-
-function registerUser(name, password) {
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-    let id = Math.floor(100000 + Math.random() * 900000).toString(); // Generate Random ID
+    let id = Math.floor(100000 + Math.random() * 900000).toString();
     let hashedPassword = btoa(password);
 
-    users.push({ ID: id, Name: name, Password: hashedPassword });
-    localStorage.setItem("users", JSON.stringify(users));
-
-    // ✅ Show greeting with name & ID #
     alert(`✅ Hello, ${name}! Your ID # is ${id}. Your account has been created successfully.`);
-    console.log(`✅ New Signup: Hello, ${name}! ID # ${id} has been registered.`);
 
-    updateExcelData(); // ✅ Immediately update the Excel sheet
+    updateExcelData({ ID: id, Name: name, Password: hashedPassword });
 
     setTimeout(() => {
-        window.location.href = "login.html"; // Redirect after sign-up
-    }, 2000);
-}
+        window.location.href = "login.html"; // Redirect after signup
+    }, 3000);
+});
 
-function updateExcelData() {
-    let users = JSON.parse(localStorage.getItem("users")) || [];
-
+function updateExcelData(newUser) {
     let storedWorkbook = localStorage.getItem("Admin Login Sheet.xlsx");
     let existingWorkbook;
 
@@ -54,22 +43,22 @@ function updateExcelData() {
         existingWorkbook = XLSX.utils.book_new();
     }
 
-    let sheetName = "Admin Login Sheet"; // ✅ Correct Sheet Name
+    let sheetName = "Admin Login Sheet";
 
-    // ✅ Fix: Remove old sheet before appending new users
+    let existingUsers = [];
     if (existingWorkbook.Sheets[sheetName]) {
-        delete existingWorkbook.Sheets[sheetName];
-        existingWorkbook.SheetNames = existingWorkbook.SheetNames.filter(name => name !== sheetName);
+        existingUsers = XLSX.utils.sheet_to_json(existingWorkbook.Sheets[sheetName]);
     }
 
-    // ✅ Append new users to the sheet
-    let worksheet = XLSX.utils.json_to_sheet(users);
+    existingUsers.push(newUser);
+    let worksheet = XLSX.utils.json_to_sheet(existingUsers);
+    
     existingWorkbook.Sheets[sheetName] = worksheet;
-    existingWorkbook.SheetNames.push(sheetName);
+    existingWorkbook.SheetNames = [sheetName];
 
     let excelBinary = XLSX.write(existingWorkbook, { bookType: "xlsx", type: "binary" });
-    localStorage.setItem("Admin Login Sheet.xlsx", btoa(excelBinary)); // ✅ Ensure Base64 Encoding
+    localStorage.setItem("Admin Login Sheet.xlsx", btoa(excelBinary));
 
-    console.log(`✅ Excel Sheet Updated! New user data has been saved.`);
-    alert(`✅ "Admin Login Sheet.xlsx" has been updated with new data.`);
+    console.log("✅ Excel Sheet Updated! New user added:", newUser);
+    alert(`✅ "Admin Login Sheet.xlsx" has been updated with new user data.`);
 }
