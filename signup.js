@@ -12,19 +12,17 @@ document.getElementById("signUpForm").addEventListener("submit", async function(
         return;
     }
 
-    const newUser = { name, password };
-
     try {
         const response = await fetch("http://127.0.0.1:5000/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newUser)
+            body: JSON.stringify({ name, password })
         });
 
         if (response.ok) {
             const result = await response.json();
             alert(result.message || "✅ Signup successful!");
-            window.location.href = "login.html"; // Redirect to login page
+            window.location.href = "login.html"; // Redirect to login page after success
         } else {
             const errorResult = await response.json();
             alert(errorResult.error || "❌ Signup failed.");
@@ -34,4 +32,3 @@ document.getElementById("signUpForm").addEventListener("submit", async function(
         alert("❌ Failed to communicate with the server.");
     }
 });
-
