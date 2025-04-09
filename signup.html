@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to CSS -->
+    <link rel="stylesheet" href="style.css"> <!-- Link to CSS for styling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script> <!-- XLSX Library -->
 </head>
 <body>
     <div class="container">
@@ -17,30 +18,69 @@
     </div>
 
     <script>
-    document.getElementById("signUpForm").addEventListener("submit", async (event) => {
-        event.preventDefault();
-        const name = document.getElementById("regName").value.trim();
-        const password = document.getElementById("regPassword").value.trim();
+        const excelFileLink = "https://onedrive.live.com/download?cid=a73d27f60e80beb6&resid=EV7meHBtT9VKjVkyWuMzIqsB6ZhDMT36yGjYb4kreCmkgA"; // Replace with your OneDrive link
 
-        if (!name || !password) {
-            alert("❌ Please provide both name and password.");
-            return;
+        document.getElementById("signUpForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("regName").value.trim();
+            const password = document.getElementById("regPassword").value.trim();
+
+            if (name.length < 3) {
+                alert("❌ Name must be at least 3 characters.");
+                return;
+            } else if (password.length < 6) {
+                alert("❌ Password must be at least 6 characters.");
+                return;
+            }
+
+            const id = Math.floor(100000 + Math.random() * 900000).toString();
+            const hashedPassword = btoa(password);
+
+            alert(`✅ Hello, ${name}! Your ID # is ${id}. Your account has been created successfully.`);
+
+            try {
+                await updateExcelData({ ID: id, Name: name, Password: hashedPassword });
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 3000);
+            } catch (error) {
+                console.error("Error updating Excel file:", error);
+                alert("❌ Failed to update Excel file. Please try again.");
+            }
+        });
+
+        async function updateExcelData(newUser) {
+            try {
+                const response = await fetch(excelFileLink);
+                if (!response.ok) throw new Error("❌ Unable to fetch Excel file.");
+
+                const excelData = await response.arrayBuffer();
+                const workbook = XLSX.read(excelData, { type: "array" });
+                const sheetName = "Admin Login Sheet";
+
+                let existingUsers = workbook.Sheets[sheetName]
+                    ? XLSX.utils.sheet_to_json(workbook.Sheets[sheetName])
+                    : [];
+
+                existingUsers.push(newUser);
+                const worksheet = XLSX.utils.json_to_sheet(existingUsers);
+
+                workbook.Sheets[sheetName] = worksheet;
+                const updatedExcel = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+                const blob = new Blob([updatedExcel], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+
+                const downloadLink = document.createElement("a");
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.download = "Admin Login Sheet.xlsx";
+                downloadLink.click();
+
+                alert("✅ Excel file updated successfully.");
+            } catch (error) {
+                console.error("Error updating Excel:", error);
+                throw new Error("Failed to update Excel file.");
+            }
         }
-
-        try {
-            const response = await fetch("http://127.0.0.1:5000/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, password })
-            });
-
-            const result = await response.json();
-            alert(result.message || "✅ Signup successful!");
-        } catch (error) {
-            console.error("Error during signup:", error);
-            alert("❌ Unable to connect to the server. Please try again later.");
-        }
-    });
     </script>
 </body>
 </html>
