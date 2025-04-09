@@ -1,41 +1,42 @@
+/* Center everything in the middle of the screen */
+body {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    display: flex; /* ✅ Flexbox for centering */
+    justify-content: center; /* ✅ Horizontal centering */
+    align-items: center; /* ✅ Vertical centering */
+    height: 100vh; /* ✅ Full viewport height */
+    background-color: Canvas;
+    color: ButtonText;
+}
+
+/* Make the container bigger & centered */
 .container {
-    max-width: 500px; /* ✅ Increased width */
-    padding: 40px; /* ✅ More padding for a bigger feel */
-    border-radius: 10px; /* ✅ Slightly larger rounded corners */
+    width: 400px; /* ✅ Adjusted width to ensure inputs fit */
+    padding: 40px;
+    border-radius: 10px;
     background: Canvas;
     border: 3px solid ButtonText;
     text-align: center;
+    display: flex;
+    flex-direction: column; /* ✅ Ensures everything is stacked */
+    align-items: center; /* ✅ Centers inside container */
 }
 
-/* Make input fields and buttons uniform in size */
+/* Make inputs & buttons uniform */
 input, button {
-    width: 120%;
-    height: 60px; /* ✅ Slightly taller */
-    font-size: 20px; /* ✅ Increased font size */
-    border-radius: 15px; /* ✅ More rounded edges */
+    width: 100%; /* ✅ Ensure inputs fit inside container */
+    height: 60px;
+    font-size: 20px;
+    border-radius: 15px;
     padding: 15px;
     box-sizing: border-box;
 }
 
+/* Improve input styling */
 input {
     background: Field;
     color: FieldText;
-    border: 2px solid ButtonText;
-}
-
-input:focus {
-    outline: 3px solid Highlight;
-}
-
-button {
-    background: ButtonFace;
-    color: ButtonText;
-    border: 2px solid ButtonText;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-button:hover {
-    background: Highlight;
-    color: HighlightText;
-}
+    border: 2px solid
