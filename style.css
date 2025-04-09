@@ -1,47 +1,74 @@
 body {
-    font-family: "Segoe UI", Roboto, Arial, sans-serif; /* ✅ Clean, modern fonts */
-    font-size: 18px; /* ✅ Adjusted base font size */
+    font-family: "Segoe UI", Roboto, Arial, sans-serif; /* ✅ Professional fonts */
+    font-size: 18px;
     margin: 0;
-    padding: 20px;
-    text-align: center;
+    padding: 0;
+    display: flex; /* ✅ Flex layout for centering */
+    justify-content: center; /* ✅ Horizontal centering */
+    align-items: center; /* ✅ Vertical centering */
+    height: 100vh; /* ✅ Full viewport height */
+    background-color: Canvas; /* ✅ Accessible background */
+    color: ButtonText; /* ✅ Accessible text */
 }
 
 .container {
     max-width: 400px;
-    margin: auto;
-    background: Canvas;
-    padding: 20px;
+    padding: 30px; /* ✅ Adjusted spacing */
     border-radius: 8px;
+    background: Canvas;
     border: 3px solid ButtonText;
     text-align: center;
 }
 
-h1 {
-    font-size: 28px; /* ✅ Larger header for emphasis */
+h2 {
+    font-size: 26px;
     font-weight: bold;
-    color: ButtonText;
+    margin-bottom: 20px; /* ✅ Spacing between elements */
 }
 
-.subtext {
-    font-size: 20px;
-    color: ButtonText;
-    font-weight: 500; /* ✅ Slightly thicker text for clarity */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* ✅ Equally spaced elements */
+    margin-bottom: 20px;
 }
 
-.btn {
-    display: inline-block;
-    padding: 14px 24px;
-    font-size: 18px;
-    text-decoration: none;
+input {
+    background: Field;
+    color: FieldText;
+    border: 2px solid ButtonText;
+    padding: 15px; /* ✅ Increased input size */
+    font-size: 16px; /* ✅ Professional font size */
+    border-radius: 6px; /* ✅ Rounded edges */
+    width: 100%; /* ✅ Full width */
+}
+
+input:focus {
+    outline: 3px solid Highlight;
+}
+
+button {
     background: ButtonFace;
     color: ButtonText;
-    border: 3px solid ButtonText;
-    font-weight: bold;
+    border: 2px solid ButtonText;
+    padding: 15px;
+    font-size: 18px; /* ✅ Bigger button text */
+    border-radius: 6px;
+    cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
 
-.btn:hover, .btn:focus {
+button:hover {
     background: Highlight;
     color: HighlightText;
-    outline: 4px solid HighlightText;
+}
+
+p {
+    font-size: 18px;
+    margin-top: 20px; /* ✅ Spacing for better layout */
+}
+
+a {
+    color: LinkText;
+    text-decoration: underline;
 }
