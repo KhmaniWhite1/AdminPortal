@@ -14,7 +14,7 @@ function exportToExcel() {
 
     let existingWorkbook;
     try {
-        // Try to retrieve an existing workbook from local storage
+        // Check if an existing Excel file is stored
         let storedWorkbook = localStorage.getItem("excelWorkbook");
         if (storedWorkbook) {
             existingWorkbook = XLSX.read(storedWorkbook, { type: "binary" });
@@ -26,11 +26,16 @@ function exportToExcel() {
         existingWorkbook = XLSX.utils.book_new();
     }
 
-    // Append new data to the existing worksheet
-    let worksheet = XLSX.utils.json_to_sheet(exportedUsers);
-    XLSX.utils.book_append_sheet(existingWorkbook, worksheet, "Admin Logins");
+    // Check if worksheet exists, else create it
+    let sheetName = "Admin Logins";
+    let worksheet = existingWorkbook.Sheets[sheetName] || XLSX.utils.json_to_sheet([]);
+    
+    // Append new data to worksheet
+    let updatedData = XLSX.utils.sheet_to_json(worksheet).concat(exportedUsers);
+    worksheet = XLSX.utils.json_to_sheet(updatedData);
+    XLSX.utils.book_append_sheet(existingWorkbook, worksheet, sheetName);
 
-    // Convert workbook to binary string and store it in local storage
+    // Store workbook in local storage instead of downloading
     let excelBinary = XLSX.write(existingWorkbook, { bookType: "xlsx", type: "binary" });
     localStorage.setItem("excelWorkbook", excelBinary);
 
