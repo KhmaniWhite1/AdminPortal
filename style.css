@@ -1,7 +1,7 @@
 /* 🌎 Apply Forced Colors Mode for Accessibility */
 @media (forced-colors: active) {
     body {
-        background-color: CanvasText; /* ✅ High contrast text */
+        background-color: Canvas; /* ✅ Corrected background */
         color: ButtonText;
         font-family: Arial, sans-serif;
         padding: 20px;
@@ -47,4 +47,25 @@
         color: HighlightText;
         outline: 4px solid HighlightText;
     }
+
+    /* ✅ Added keyboard focus for inputs */
+    input, textarea {
+        background: Field;
+        color: FieldText;
+        border: 2px solid ButtonText;
+        padding: 10px;
+        width: 100%;
+    }
+
+    input:focus, textarea:focus {
+        outline: 3px solid Highlight;
+    }
+}
+
+/* ✅ Improve default high-contrast styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
 }
