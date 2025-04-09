@@ -7,11 +7,14 @@ function registerUser() {
         return;
     }
 
+    // Generate a random 6-digit ID number
+    let id = Math.floor(100000 + Math.random() * 900000);
+
     let users = JSON.parse(localStorage.getItem("users")) || [];
-    users.push({ Name: name, Password: password });
+    users.push({ Name: name, ID: id, Password: password });
     localStorage.setItem("users", JSON.stringify(users));
 
-    document.getElementById("welcomeMessage").innerText = `✅ Hello, ${name}!`;
+    document.getElementById("welcomeMessage").innerText = `✅ Hello, ${name}! Your ID # is ${id}`;
 
     exportToExcel();
 
@@ -28,7 +31,8 @@ function exportToExcel() {
         return;
     }
 
-    let worksheet = XLSX.utils.json_to_sheet(users, { header: ["Name", "Password"] });
+    // Update headers in Excel to include correct name format
+    let worksheet = XLSX.utils.json_to_sheet(users, { header: ["Name (Last, First MI)", "ID", "Password"] });
     let workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Admin Logins");
 
