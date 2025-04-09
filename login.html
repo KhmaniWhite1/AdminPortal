@@ -2,14 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Portal</title>
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Admin Portal</h1>
-        <p class="subtext">Click the button below to Login/Signup:</p>
-        <a href="login.html" class="btn">Login/Signup</a>
+        <h2>Login</h2>
+
+        <input type="text" id="loginID" placeholder="Enter Your ID #">
+        <input type="password" id="loginPassword" placeholder="Enter Your Password">
+        <button onclick="verifyLogin()" class="btn">Login</button>
+        <p id="loginMessage"></p>
+
+        <hr>
+        <p class="subtext">New here? Click below to sign up:</p>
+        <a href="signup.html" class="btn-alt">Click Here To Sign Up</a>
     </div>
 </body>
 </html>
