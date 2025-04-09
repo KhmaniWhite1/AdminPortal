@@ -24,6 +24,20 @@ function registerUser() {
     }, 2000);
 }
 
+function verifyLogin() {
+    let loginID = document.getElementById("loginID").value.trim();
+    let loginPassword = document.getElementById("loginPassword").value.trim();
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    let user = users.find(u => u.ID === loginID && u.Password === loginPassword);
+
+    if (user) {
+        document.getElementById("loginMessage").innerText = `✅ Welcome, ${user.Name}!`;
+    } else {
+        document.getElementById("loginMessage").innerText = "❌ Invalid ID # or Password.";
+    }
+}
+
 function exportToExcel() {
     let users = JSON.parse(localStorage.getItem("users")) || [];
     if (users.length === 0) {
@@ -31,7 +45,6 @@ function exportToExcel() {
         return;
     }
 
-    // Update headers in Excel to include correct name format
     let worksheet = XLSX.utils.json_to_sheet(users, { header: ["Name (Last, First MI)", "ID", "Password"] });
     let workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Admin Logins");
