@@ -1,11 +1,20 @@
-/* Uniform size for buttons and text inputs */
+.container {
+    max-width: 500px; /* ✅ Increased width */
+    padding: 40px; /* ✅ More padding for a bigger feel */
+    border-radius: 10px; /* ✅ Slightly larger rounded corners */
+    background: Canvas;
+    border: 3px solid ButtonText;
+    text-align: center;
+}
+
+/* Make input fields and buttons uniform in size */
 input, button {
-    width: 100%; /* ✅ Full width within the container */
-    height: 50px; /* ✅ Same height for all */
-    font-size: 16px; /* ✅ Consistent text size */
-    border-radius: 6px; /* ✅ Rounded edges for consistency */
-    padding: 10px; /* ✅ Space inside the elements */
-    box-sizing: border-box; /* ✅ Ensures padding doesn't break layout */
+    width: 100%;
+    height: 55px; /* ✅ Slightly taller */
+    font-size: 18px; /* ✅ Increased font size */
+    border-radius: 8px; /* ✅ More rounded edges */
+    padding: 12px;
+    box-sizing: border-box;
 }
 
 input {
