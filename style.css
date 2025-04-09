@@ -1,46 +1,17 @@
-body {
-    font-family: "Segoe UI", Roboto, Arial, sans-serif; /* ✅ Professional fonts */
-    font-size: 18px;
-    margin: 0;
-    padding: 0;
-    display: flex; /* ✅ Flex layout for centering */
-    justify-content: center; /* ✅ Horizontal centering */
-    align-items: center; /* ✅ Vertical centering */
-    height: 100vh; /* ✅ Full viewport height */
-    background-color: Canvas; /* ✅ Accessible background */
-    color: ButtonText; /* ✅ Accessible text */
-}
-
-.container {
-    max-width: 400px;
-    padding: 30px; /* ✅ Adjusted spacing */
-    border-radius: 8px;
-    background: Canvas;
-    border: 3px solid ButtonText;
-    text-align: center;
-}
-
-h2 {
-    font-size: 26px;
-    font-weight: bold;
-    margin-bottom: 20px; /* ✅ Spacing between elements */
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* ✅ Equally spaced elements */
-    margin-bottom: 20px;
+/* Uniform size for buttons and text inputs */
+input, button {
+    width: 100%; /* ✅ Full width within the container */
+    height: 50px; /* ✅ Same height for all */
+    font-size: 16px; /* ✅ Consistent text size */
+    border-radius: 6px; /* ✅ Rounded edges for consistency */
+    padding: 10px; /* ✅ Space inside the elements */
+    box-sizing: border-box; /* ✅ Ensures padding doesn't break layout */
 }
 
 input {
     background: Field;
     color: FieldText;
     border: 2px solid ButtonText;
-    padding: 15px; /* ✅ Increased input size */
-    font-size: 16px; /* ✅ Professional font size */
-    border-radius: 6px; /* ✅ Rounded edges */
-    width: 100%; /* ✅ Full width */
 }
 
 input:focus {
@@ -51,9 +22,6 @@ button {
     background: ButtonFace;
     color: ButtonText;
     border: 2px solid ButtonText;
-    padding: 15px;
-    font-size: 18px; /* ✅ Bigger button text */
-    border-radius: 6px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
@@ -61,14 +29,4 @@ button {
 button:hover {
     background: Highlight;
     color: HighlightText;
-}
-
-p {
-    font-size: 18px;
-    margin-top: 20px; /* ✅ Spacing for better layout */
-}
-
-a {
-    color: LinkText;
-    text-decoration: underline;
 }
