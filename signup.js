@@ -6,9 +6,9 @@ function updateExcelData() {
     }
 
     let exportedUsers = users.map(user => ({
-        Name: user.Name,
         ID: user.ID,
-        Password: user.Password // Remove `atob()` from here
+        Name: user.Name,
+        Password: atob(user.Password) // ✅ Proper decoding
     }));
 
     let storedWorkbook = localStorage.getItem("Admin Login Sheet.xlsx");
@@ -16,7 +16,7 @@ function updateExcelData() {
 
     if (storedWorkbook) {
         try {
-            storedWorkbook = atob(storedWorkbook); // ✅ Decode only if it's Base64-encoded
+            storedWorkbook = atob(storedWorkbook); // ✅ Decode Base64 safely
             existingWorkbook = XLSX.read(storedWorkbook, { type: "binary" });
         } catch (error) {
             console.error("⚠ Invalid Base64 Encoding:", error);
@@ -26,8 +26,9 @@ function updateExcelData() {
         existingWorkbook = XLSX.utils.book_new();
     }
 
-    let sheetName = "Admin Login Sheet";
+    let sheetName = "Admin Login Sheet"; // ✅ Updated sheet name
 
+    // ✅ Fix: Remove old sheet before appending new users
     if (existingWorkbook.Sheets[sheetName]) {
         delete existingWorkbook.Sheets[sheetName];
         existingWorkbook.SheetNames = existingWorkbook.SheetNames.filter(name => name !== sheetName);
@@ -39,5 +40,5 @@ function updateExcelData() {
     let excelBinary = XLSX.write(existingWorkbook, { bookType: "xlsx", type: "binary" });
     localStorage.setItem("Admin Login Sheet.xlsx", btoa(excelBinary)); // ✅ Ensure Base64 Encoding
 
-    alert("✅ New users have been added! Data is stored but not downloaded.");
+    alert(`✅ New users added to "Admin Login Sheet.xlsx"!`);
 }
