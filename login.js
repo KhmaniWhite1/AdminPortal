@@ -1,42 +1,31 @@
-document.getElementById("loginForm").addEventListener("submit", authenticateUser);
-
-function authenticateUser(event) {
+document.getElementById("loginForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
-    let name = document.getElementById("loginName").value.trim();
-    let password = document.getElementById("loginPassword").value.trim();
+    const name = document.getElementById("loginName").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
 
     if (!name || !password) {
         alert("❌ Please fill in all fields.");
         return;
     }
 
-    readExcelOnLogin(name, password);
-}
-
-function readExcelOnLogin(name, password) {
     try {
-        let storedWorkbook = localStorage.getItem("Admin Login Sheet.xlsx");
-        if (!storedWorkbook) {
-            alert("❌ No Excel file found in storage.");
-            return;
-        }
+        const response = await fetch("http://127.0.0.1:5000/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, password })
+        });
 
-        let workbook = XLSX.read(atob(storedWorkbook), { type: "binary" });
-        let sheetName = "Admin Login Sheet";
-        let worksheet = workbook.Sheets[sheetName];
-        let jsonData = XLSX.utils.sheet_to_json(worksheet);
-
-        let user = jsonData.find(user => user.Name === name && atob(user.Password) === password);
-        
-        if (user) {
-            alert(`✅ Welcome back, ${user.Name}! Your ID # is ${user.ID}`);
+        if (response.ok) {
+            const result = await response.json();
+            alert(result.message || "✅ Login successful!");
         } else {
-            alert("❌ Incorrect username or password.");
+            const errorResult = await response.json();
+            alert(errorResult.error || "❌ Incorrect username or password.");
         }
-
     } catch (error) {
-        console.error("Excel Read Error:", error);
-        alert("❌ Failed to read Excel file.");
+        console.error("Login Error:", error);
+        alert("❌ Failed to communicate with the server.");
     }
-}
+});
+
