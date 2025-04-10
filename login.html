@@ -2,106 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Login Page</title>
     <style>
-        /* General Styles */
-        body {
-            font-family: "Segoe UI", sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        /* Container Styles */
-        .container {
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            background-color: white;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        /* Heading Styles */
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        /* Input Field Styles */
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 16px;
-            box-sizing: border-box;
-        }
-
-        /* Button Styles */
-        .btn {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            background: linear-gradient(135deg, #0078D4, #005A9E);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn:hover {
-            background: linear-gradient(135deg, #005A9E, #003E75);
-        }
-
-        /* Subtext & Links */
-        .subtext {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .link {
-            color: #0078D4;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .link:hover {
-            text-decoration: underline;
-        }
+        body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; padding-top: 50px; }
+        input, button { margin: 5px; padding: 10px; }
+        .error { color: red; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <input type="text" id="loginID" placeholder="Enter User ID" required>
-            <input type="text" id="loginName" placeholder="Enter Name" required>
-            <input type="password" id="loginPassword" placeholder="Enter Password" required>
-            <button type="submit" class="btn">Login</button>
-        </form>
-        <p class="subtext">Don't have an account? <a href="signup.html" class="link">Sign Up Here</a></p>
-    </div>
+    <h2>Login to Your Account</h2>
+    <input type="text" id="userId" placeholder="Student ID">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p class="error" id="errorMsg"></p>
+
+    <!-- ✅ Fixed SVG issue -->
+    <svg viewBox="0 0 100 4" width="100" height="4">
+        <rect width="100" height="4" fill="blue"></rect>
+    </svg>
 
     <script>
-        document.getElementById("loginForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
+        async function login() {
+            const userId = document.getElementById("userId").value.trim();
+            const password = document.getElementById("password").value.trim();
 
-            const user_id = document.getElementById("loginID").value.trim();
-            const name = document.getElementById("loginName").value.trim();
-            const password = document.getElementById("loginPassword").value.trim();
-
-            if (!user_id || !name || !password) {
-                alert("❌ Please fill in all fields.");
+            if (!userId || !password) {
+                document.getElementById("errorMsg").innerText = "❌ Please enter both ID and password.";
                 return;
             }
 
@@ -109,22 +35,21 @@
                 const response = await fetch("http://127.0.0.1:5000/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user_id, name, password })
+                    body: JSON.stringify({ user_id: userId, password })
                 });
 
+                const result = await response.json();
+
                 if (response.ok) {
-                    const result = await response.json();
-                    alert(result.message || "✅ Login successful!");
-                    window.location.href = "apps.html"; // Redirect to apps.html
+                    alert(result.message);
                 } else {
-                    const errorResult = await response.json();
-                    alert(errorResult.error || "❌ Incorrect username, password, or ID.");
+                    document.getElementById("errorMsg").innerText = result.error;
                 }
             } catch (error) {
+                document.getElementById("errorMsg").innerText = "❌ Failed to connect to server.";
                 console.error("Login Error:", error);
-                alert("❌ Failed to communicate with the server.");
             }
-        });
+        }
     </script>
 </body>
 </html>
