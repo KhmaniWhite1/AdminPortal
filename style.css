@@ -40,7 +40,7 @@ body {
 
 /* Input Fields Styling */
 .input-group {
-    margin-bottom: 35px; /* Consistent gap between inputs */
+    margin-bottom: 25px; /* Consistent gap between inputs */
     text-align: left;
 }
 
@@ -79,6 +79,7 @@ input:focus {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    margin-top: 40px; /* Increased spacing between inputs and button */
 }
 
 .btn:hover {
@@ -129,4 +130,3 @@ input:focus {
         padding: 12px; /* Adjust padding */
     }
 }
-
