@@ -3,7 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link to CSS for styling -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container Styles */
+        .container {
+            width: 100%;
+            max-width: 350px;
+            margin: 100px auto;
+            padding: 30px;
+            background-color: #fff;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Heading Styles */
+        h2 {
+            color: #333;
+        }
+
+        /* Input Field Styles */
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Button Styles */
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #0078D4;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #005A9E;
+        }
+
+        /* Subtext & Links */
+        .subtext {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .link {
+            color: #0078D4;
+            text-decoration: none;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -38,6 +106,7 @@
                 if (response.ok) {
                     const result = await response.json();
                     alert(result.message || "✅ Login successful!");
+                    window.location.href = "apps.html"; // Redirect to apps.html
                 } else {
                     const errorResult = await response.json();
                     alert(errorResult.error || "❌ Incorrect username or password.");
