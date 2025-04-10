@@ -14,6 +14,7 @@
     <input type="text" id="userId" placeholder="ID #" autocomplete="off">
     <input type="password" id="password" placeholder="Password" autocomplete="off">
     <button onclick="login()">Login</button>
+    <button onclick="redirectToSignup()">Sign Up</button> <!-- ✅ New Sign Up button -->
     <p class="error" id="errorMsg"></p>
 
     <script>
@@ -44,6 +45,10 @@
                 document.getElementById("errorMsg").innerText = "❌ Failed to connect to server.";
                 console.error("Login Error:", error);
             }
+        }
+
+        function redirectToSignup() {
+            window.location.href = "signup.html";  // ✅ Redirects to sign-up page
         }
     </script>
 </body>
