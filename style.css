@@ -1,4 +1,4 @@
-/* General Styles */
+/* General Styles for Body */
 body {
     font-family: "Segoe UI", Arial, sans-serif;
     font-size: 16px;
@@ -8,13 +8,13 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Modern gradient */
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: #333;
 }
 
-/* Container for form elements */
+/* Container for All Pages */
 .container {
-    width: 420px; /* Consistent width for forms */
+    width: 450px; /* Consistent width across all pages */
     padding: 30px;
     border-radius: 10px;
     background: #fff;
@@ -22,18 +22,25 @@ body {
     text-align: center;
 }
 
-/* Titles */
+/* Title Styling */
 .title {
     font-size: 24px;
     color: #2575fc;
     margin-bottom: 20px;
     font-weight: 600;
-    text-transform: capitalize;
 }
 
-/* Input Fields */
+/* Subtext Styling */
+.subtext {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+    margin-bottom: 25px; /* Updated gap */
+}
+
+/* Input Fields Styling */
 .input-group {
-    margin-bottom: 20px; /* Consistent spacing */
+    margin-bottom: 25px; /* Consistent gap between inputs */
     text-align: left;
 }
 
@@ -45,8 +52,8 @@ label {
 }
 
 input {
-    width: 100%; /* Consistent width */
-    padding: 12px; /* Uniform size for input fields */
+    width: 100%; /* Full-width fields */
+    padding: 12px; /* Uniform field size */
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -60,10 +67,10 @@ input:focus {
     box-shadow: 0 0 8px rgba(37, 117, 252, 0.4);
 }
 
-/* Buttons */
+/* Buttons Styling */
 .btn {
-    width: 100%; /* Uniform size */
-    padding: 12px;
+    width: 100%; /* Full-width for uniformity */
+    padding: 12px; /* Consistent size for buttons */
     font-size: 16px;
     font-weight: 600;
     color: #fff;
@@ -83,20 +90,27 @@ input:focus {
     transform: translateY(0);
 }
 
-/* Subtext and Links */
-.subtext {
-    margin-top: 20px;
-    font-size: 14px;
-    color: #777;
+/* App Container (For Icon Pages) */
+.app-container {
+    display: flex;
+    flex-wrap: wrap; /* Wrap icons to the next line if needed */
+    gap: 25px; /* Updated gap between icons */
+    justify-content: center; /* Center align icons */
+    margin-top: 25px; /* Space above icons */
 }
 
-.link {
-    color: #2575fc;
-    text-decoration: none;
+/* App Icons Styling */
+.app-container img {
+    width: 120px; /* Consistent icon size */
+    height: 120px;
+    border-radius: 10px; /* Rounded corners for modern look */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.link:hover {
-    text-decoration: underline;
+/* Hover Effect for App Icons */
+.app-container img:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Elevate icons on hover */
 }
 
 /* Responsive Design */
@@ -105,13 +119,13 @@ input:focus {
         width: 90%; /* Adjust container width for smaller screens */
     }
 
-    .title {
-        font-size: 20px; /* Reduce title size for smaller screens */
+    .app-container img {
+        width: 90px; /* Smaller icon size for smaller devices */
+        height: 90px;
     }
 
-    input, .btn {
-        font-size: 14px; /* Adjust font size for smaller devices */
-        padding: 10px;
+    .btn, input {
+        font-size: 14px; /* Adjust font size */
+        padding: 10px; /* Adjust padding */
     }
 }
-
