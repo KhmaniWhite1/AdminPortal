@@ -84,6 +84,7 @@
     <div class="container">
         <h2>Login</h2>
         <form id="loginForm">
+            <input type="text" id="loginID" placeholder="Enter User ID" required>
             <input type="text" id="loginName" placeholder="Enter Name" required>
             <input type="password" id="loginPassword" placeholder="Enter Password" required>
             <button type="submit" class="btn">Login</button>
@@ -95,10 +96,11 @@
         document.getElementById("loginForm").addEventListener("submit", async function(event) {
             event.preventDefault();
 
+            const user_id = document.getElementById("loginID").value.trim();
             const name = document.getElementById("loginName").value.trim();
             const password = document.getElementById("loginPassword").value.trim();
 
-            if (!name || !password) {
+            if (!user_id || !name || !password) {
                 alert("❌ Please fill in all fields.");
                 return;
             }
@@ -107,7 +109,7 @@
                 const response = await fetch("http://127.0.0.1:5000/login", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, password })
+                    body: JSON.stringify({ user_id, name, password })
                 });
 
                 if (response.ok) {
@@ -116,7 +118,7 @@
                     window.location.href = "apps.html"; // Redirect to apps.html
                 } else {
                     const errorResult = await response.json();
-                    alert(errorResult.error || "❌ Incorrect username or password.");
+                    alert(errorResult.error || "❌ Incorrect username, password, or ID.");
                 }
             } catch (error) {
                 console.error("Login Error:", error);
