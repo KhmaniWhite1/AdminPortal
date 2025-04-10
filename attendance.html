@@ -7,7 +7,7 @@
         body { font-family: "Segoe UI", sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .container { width: 100%; max-width: 600px; padding: 20px; background-color: white; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); border-radius: 10px; text-align: center; }
         .btn { padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin: 5px; }
-        .btn-present { background: green; color: white; } .btn-absent { background: red; color: white; } .btn-add { background: blue; color: white; }
+        .btn-present { background: green; color: white; } .btn-absent { background: red; color: white; } .btn-remove { background: darkred; color: white; } .btn-add { background: blue; color: white; }
         .student-list li { background: #f5f5f5; padding: 10px; margin: 5px 0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
     </style>
 </head>
@@ -27,10 +27,39 @@
             students.forEach((student) => {
                 attendanceList.innerHTML += `<li>${student.user_id} - ${student.name}
                 <button class="btn btn-present" onclick="updateAttendance('${student.user_id}', 'Present ✅')">Present</button>
-                <button class="btn btn-absent" onclick="updateAttendance('${student.user_id}', 'Absent ❌')">Absent</button></li>`;
+                <button class="btn btn-absent" onclick="updateAttendance('${student.user_id}', 'Absent ❌')">Absent</button>
+                <button class="btn btn-remove" onclick="removeStudent('${student.user_id}')">Remove</button></li>`;
             });
         }
-        async function updateAttendance(user_id, status) { await fetch("http://127.0.0.1:5000/update_attendance", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ user_id, status }) }); fetchAttendance(); }
+
+        async function updateAttendance(user_id, status) { 
+            await fetch("http://127.0.0.1:5000/update_attendance", { 
+                method: "POST", 
+                headers: { "Content-Type": "application/json" }, 
+                body: JSON.stringify({ user_id, status }) 
+            }); 
+            fetchAttendance(); 
+        }
+
+        async function removeStudent(user_id) {
+            const confirmDelete = confirm(`Are you sure you want to remove Student ID ${user_id}?`);
+            if (!confirmDelete) return;
+
+            const response = await fetch("http://127.0.0.1:5000/remove_student", { 
+                method: "DELETE", 
+                headers: { "Content-Type": "application/json" }, 
+                body: JSON.stringify({ user_id }) 
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                fetchAttendance(); // Refresh list after deletion
+            } else {
+                alert(result.error);
+            }
+        }
+
         window.onload = fetchAttendance;
     </script>
 </body>
