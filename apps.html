@@ -3,39 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>Apps Dashboard</title>
-    <style>
-        body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; margin: 0; padding: 20px; }
-        .container { padding: 20px; }
-        ul { padding: 0; }
-        .app-list li { list-style: none; margin: 10px 0; font-size: 18px; }
-        button { 
-            font-size: 16px; 
-            background-color: lightblue; 
-            color: black; 
-            border: none; 
-            padding: 5px; 
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover { background-color: #007bff; color: white; }
-        .btn-logout, .btn-add-app { margin: 10px; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <nav class="navbar">
+        <a href="index.html">Home</a>
+        <a href="signup.html">Signup</a>
+        <a href="login.html">Login</a>
+        <a href="apps.html" class="active">Apps Dashboard</a>
+    </nav>
+
     <div class="container">
         <h2>Apps Dashboard</h2>
-
-        <!-- Logout Button -->
-        <button class="btn-logout" onclick="confirmLogout()">Logout</button>
-
-        <!-- Add App Button -->
-        <button class="btn-add-app" onclick="addNewApp()">Add New App</button>
-
+        <button class="btn" onclick="confirmLogout()">Logout</button>
+        <button class="btn" onclick="addNewApp()">Add New App</button>
         <h4>Available Apps</h4>
-        <ul id="appList" class="app-list"></ul> <!-- Dynamic App List -->
+        <ul id="appList"></ul>
     </div>
 
-    <script src="apps.js"></script>
-    <script src="common.js"></script>
+    <footer class="footer">
+        <p>&copy; 2025 Admin Portal</p>
+    </footer>
 </body>
 </html>
