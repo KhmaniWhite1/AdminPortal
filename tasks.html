@@ -7,9 +7,10 @@
         body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; margin: 0; padding: 20px; }
         .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 5px; }
         input, button { margin: 5px; padding: 8px; font-size: 16px; border-radius: 5px; }
-        .task-list li { list-style: none; margin: 10px 0; padding: 10px; background: #ffffff; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
+        .task-list li { list-style: none; margin: 10px 0; padding: 10px; background: white; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
         .btn-complete { background-color: green; color: white; }
         .btn-delete { background-color: red; color: white; }
+        .btn-back { background-color: orange; color: white; }
         .btn-logout { background-color: darkred; color: white; }
     </style>
 </head>
@@ -17,10 +18,10 @@
     <div class="container">
         <h2>Task Manager</h2>
 
-        <!-- Logout Button -->
+        <!-- Navigation Buttons -->
+        <button class="btn-back" onclick="goBack()">Back to Apps</button>
         <button class="btn-logout" onclick="confirmLogout()">Logout</button>
 
-        <!-- Task Input -->
         <input type="text" id="taskInput" placeholder="Enter a task">
         <input type="date" id="taskDate">
         <button onclick="addTask()">Add Task</button>
@@ -29,6 +30,7 @@
         <ul id="taskList" class="task-list"></ul>
     </div>
 
+    <script src="common.js"></script>
     <script src="tasks.js"></script>
 </body>
 </html>
