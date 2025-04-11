@@ -12,6 +12,7 @@ async function loadStudents() {
             <div>
                 <button class="btn-present" onclick="markAttendance('${student.id}', 'Present')">Present</button>
                 <button class="btn-absent" onclick="markAttendance('${student.id}', 'Absent')">Absent</button>
+                <button class="btn-remove" onclick="removeStudent('${student.id}')">Remove</button>
             </div>
         `;
         studentList.appendChild(listItem);
@@ -29,10 +30,34 @@ async function addNewStudent() {
         });
 
         const result = await response.json();
-        alert(result.message);
-        loadStudents(); // Refresh student list
+        if (response.ok) {
+            alert(result.message);
+            loadStudents(); // Refresh student list dynamically
+        } else {
+            alert(`Failed to add student: ${result.error}`);
+        }
     } else {
         alert("No student name entered. Operation cancelled.");
+    }
+}
+
+// Function to remove a student
+async function removeStudent(studentId) {
+    const confirmRemove = confirm("Are you sure you want to remove this student?");
+    if (confirmRemove) {
+        const response = await fetch("http://127.0.0.1:5000/remove_student", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: studentId })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert(result.message);
+            loadStudents(); // Refresh student list dynamically
+        } else {
+            alert(`Failed to remove student: ${result.error}`);
+        }
     }
 }
 
@@ -41,31 +66,4 @@ async function markAttendance(studentId, status) {
     const currentDate = new Date().toISOString().split("T")[0]; // Get today's date
     const response = await fetch("http://127.0.0.1:5000/mark_attendance", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: studentId, status, date: currentDate })
-    });
-
-    const result = await response.json();
-    alert(result.message);
-}
-
-// Function to load calendar statistics
-async function loadCalendarStats() {
-    const response = await fetch("http://127.0.0.1:5000/get_attendance_stats");
-    const stats = await response.json();
-
-    const calendarEl = document.getElementById("calendar");
-    calendarEl.innerHTML = "<h4>Attendance Statistics:</h4>";
-
-    stats.forEach(stat => {
-        const statItem = document.createElement("p");
-        statItem.innerText = `Date: ${stat.date}, Present: ${stat.present}, Absent: ${stat.absent}`;
-        calendarEl.appendChild(statItem);
-    });
-}
-
-// Load data on page load
-window.onload = function() {
-    loadStudents();         // Load student list
-    loadCalendarStats();    // Load calendar statistics
-};
+       
