@@ -1,96 +1,99 @@
 /* General Body Styling */
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #4facfe, #00f2fe); /* Fancy gradient background */
+    background: linear-gradient(to right, #4facfe, #00f2fe); /* Gradient background */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    align-items: center;
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: #333;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    padding: 15px;
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-/* Center the Content */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover, .navbar a.active {
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+/* Container Styling */
 .container {
     background-color: white;
-    padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add a shadow for elevation effect */
-    max-width: 400px;
-    width: 100%;
-    text-align: center; /* Center the text content */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
 }
 
-/* Headings */
-h1, h2 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+/* Headers */
+h1, h2, h3, h4 {
     color: #333;
-}
-
-/* Labels */
-label {
-    font-size: 1rem;
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: bold;
-}
-
-/* Input Fields */
-input {
-    width: 100%;
-    padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-    background-color: #f9f9f9;
-    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-input:focus {
-    background-color: #fff;
-    box-shadow: 0 0 5px #007BFF;
-    outline: none;
+/* Lists */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background-color: #f9f9f9;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Buttons */
-button {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    color: white;
-    background-color: #007BFF;
+button, .btn {
+    font-size: 16px;
+    background-color: lightblue;
+    color: black;
     border: none;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
 }
 
-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05); /* Subtle zoom effect on hover */
+button:hover, .btn:hover {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.05);
 }
 
-button:active {
-    transform: scale(0.98); /* Slight press effect */
-}
-
-/* Links */
-a {
-    color: #007BFF;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-a:hover {
-    text-decoration: underline;
+button:active, .btn:active {
+    transform: scale(0.95);
 }
 
 /* Footer */
 .footer {
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #333;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: white;
+    margin-top: auto;
+    width: 100%;
 }
