@@ -3,64 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Attendance Tracker</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/fullcalendar.min.css" rel="stylesheet">
     <style>
-        body { font-family: "Segoe UI", sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { width: 100%; max-width: 600px; padding: 20px; background-color: white; box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); border-radius: 10px; text-align: center; }
-        .btn { padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin: 5px; }
-        .btn-present { background: green; color: white; } .btn-absent { background: red; color: white; } .btn-remove { background: darkred; color: white; } .btn-add { background: blue; color: white; }
-        .student-list li { background: #f5f5f5; padding: 10px; margin: 5px 0; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; }
+        body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; padding: 0; margin: 0; }
+        h2, h4 { margin: 20px; }
+        ul { padding: 0; }
+        .student-list li { list-style: none; margin: 10px 0; background: #ffffff; padding: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
+        button { padding: 5px 10px; margin-left: 5px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn-present { background-color: green; color: white; }
+        .btn-absent { background-color: red; color: white; }
+        .calendar { margin: 20px auto; width: 80%; background: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Attendance Tracker</h2>
-        <button class="btn btn-add" onclick="openPopup()">Add New Student</button>
-        <ul id="attendanceList" class="student-list"></ul>
+
+        <h4>Student List</h4>
+        <ul id="studentList" class="student-list"></ul>
+
+        <h4>Attendance Calendar</h4>
+        <div id="calendar"></div>
     </div>
 
-    <script>
-        async function fetchAttendance() {
-            const response = await fetch("http://127.0.0.1:5000/get_attendance");
-            const students = await response.json();
-            const attendanceList = document.getElementById("attendanceList");
-            attendanceList.innerHTML = "";
-            students.forEach((student) => {
-                attendanceList.innerHTML += `<li>${student.user_id} - ${student.name}
-                <button class="btn btn-present" onclick="updateAttendance('${student.user_id}', 'Present ✅')">Present</button>
-                <button class="btn btn-absent" onclick="updateAttendance('${student.user_id}', 'Absent ❌')">Absent</button>
-                <button class="btn btn-remove" onclick="removeStudent('${student.user_id}')">Remove</button></li>`;
-            });
-        }
-
-        async function updateAttendance(user_id, status) { 
-            await fetch("http://127.0.0.1:5000/update_attendance", { 
-                method: "POST", 
-                headers: { "Content-Type": "application/json" }, 
-                body: JSON.stringify({ user_id, status }) 
-            }); 
-            fetchAttendance(); 
-        }
-
-        async function removeStudent(user_id) {
-            const confirmDelete = confirm(`Are you sure you want to remove Student ID ${user_id}?`);
-            if (!confirmDelete) return;
-
-            const response = await fetch("http://127.0.0.1:5000/remove_student", { 
-                method: "DELETE", 
-                headers: { "Content-Type": "application/json" }, 
-                body: JSON.stringify({ user_id }) 
-            });
-
-            const result = await response.json();
-            if (response.ok) {
-                alert(result.message);
-                fetchAttendance(); // Refresh list after deletion
-            } else {
-                alert(result.error);
-            }
-        }
-
-        window.onload = fetchAttendance;
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/fullcalendar.min.js"></script>
+    <script src="attendance.js"></script> <!-- Link to external JS file -->
 </body>
 </html>
