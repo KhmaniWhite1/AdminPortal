@@ -1,13 +1,3 @@
-// Dummy Student Data (You can replace this with data from the backend)
-const students = [
-    { id: "123", name: "Alice" },
-    { id: "456", name: "Bob" },
-    { id: "789", name: "Charlie" }
-];
-
-// Attendance Data (For storing Present/Absent status)
-const attendance = {};
-
 // Function to load the student list dynamically
 async function loadStudents() {
     const response = await fetch("http://127.0.0.1:5000/get_students");
@@ -18,7 +8,7 @@ async function loadStudents() {
     students.forEach(student => {
         const listItem = document.createElement("li");
         listItem.innerHTML = `
-            ${student.name}
+            ${student.name} (ID: ${student.id})
             <div>
                 <button class="btn-present" onclick="markAttendance('${student.id}', 'Present')">Present</button>
                 <button class="btn-absent" onclick="markAttendance('${student.id}', 'Absent')">Absent</button>
@@ -40,7 +30,7 @@ async function addNewStudent() {
 
         const result = await response.json();
         alert(result.message);
-        loadStudents();
+        loadStudents(); // Refresh student list
     } else {
         alert("No student name entered. Operation cancelled.");
     }
@@ -49,6 +39,33 @@ async function addNewStudent() {
 // Function to mark attendance (Present/Absent)
 async function markAttendance(studentId, status) {
     const currentDate = new Date().toISOString().split("T")[0]; // Get today's date
-    await fetch("http://127.0.0.1:5000/mark_attendance", {
+    const response = await fetch("http://127.0.0.1:5000/mark_attendance", {
         method: "POST",
-        headers:
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: studentId, status, date: currentDate })
+    });
+
+    const result = await response.json();
+    alert(result.message);
+}
+
+// Function to load calendar statistics
+async function loadCalendarStats() {
+    const response = await fetch("http://127.0.0.1:5000/get_attendance_stats");
+    const stats = await response.json();
+
+    const calendarEl = document.getElementById("calendar");
+    calendarEl.innerHTML = "<h4>Attendance Statistics:</h4>";
+
+    stats.forEach(stat => {
+        const statItem = document.createElement("p");
+        statItem.innerText = `Date: ${stat.date}, Present: ${stat.present}, Absent: ${stat.absent}`;
+        calendarEl.appendChild(statItem);
+    });
+}
+
+// Load data on page load
+window.onload = function() {
+    loadStudents();         // Load student list
+    loadCalendarStats();    // Load calendar statistics
+};
