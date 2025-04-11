@@ -7,10 +7,18 @@
         body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; margin: 0; padding: 20px; }
         .container { padding: 20px; }
         ul { padding: 0; }
-        .app-list li { list-style: none; margin: 10px 0; font-size: 18px; background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
-        .app-link { text-decoration: none; color: blue; font-size: 16px; }
-        .btn-logout { background-color: darkred; color: white; padding: 8px 15px; font-size: 16px; border-radius: 5px; }
-        .btn-add-app { background-color: green; color: white; padding: 8px 15px; font-size: 16px; border-radius: 5px; }
+        .app-list li { list-style: none; margin: 10px 0; font-size: 18px; }
+        button { 
+            font-size: 16px; 
+            background-color: lightblue; 
+            color: black; 
+            border: none; 
+            padding: 5px; 
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover { background-color: #007bff; color: white; }
+        .btn-logout, .btn-add-app { margin: 10px; }
     </style>
 </head>
 <body>
@@ -20,8 +28,10 @@
         <!-- Logout Button -->
         <button class="btn-logout" onclick="confirmLogout()">Logout</button>
 
-        <h4>Available Apps</h4>
+        <!-- Add App Button -->
         <button class="btn-add-app" onclick="addNewApp()">Add New App</button>
+
+        <h4>Available Apps</h4>
         <ul id="appList" class="app-list"></ul> <!-- Dynamic App List -->
     </div>
 
