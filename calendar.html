@@ -4,23 +4,24 @@
     <meta charset="UTF-8">
     <title>Calendar & Attendance Stats</title>
     <style>
-        body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; margin: 0; padding: 0; }
+        body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; margin: 0; padding: 20px; }
         .container { padding: 20px; }
-        table { width: 80%; margin: auto; border-collapse: collapse; background: #ffffff; }
+        table { width: 80%; margin: auto; border-collapse: collapse; background: white; }
         th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
         th { background-color: #007bff; color: white; }
         .btn-add-event { background-color: green; color: white; padding: 8px 15px; font-size: 16px; border-radius: 5px; }
-        .btn-logout { background-color: darkred; color: white; padding: 8px 15px; font-size: 16px; border-radius: 5px; }
+        .btn-back { background-color: orange; color: white; }
+        .btn-logout { background-color: darkred; color: white; }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Calendar & Attendance Stats</h2>
 
-        <!-- Logout Button -->
+        <!-- Navigation Buttons -->
+        <button class="btn-back" onclick="goBack()">Back to Apps</button>
         <button class="btn-logout" onclick="confirmLogout()">Logout</button>
 
-        <!-- Add Event Button -->
         <button class="btn-add-event" onclick="addNewEvent()">Add New Event</button>
 
         <h3>Attendance Overview</h3>
@@ -39,6 +40,7 @@
         </table>
     </div>
 
+    <script src="common.js"></script>
     <script src="calendar.js"></script>
 </body>
-</html>7
+</html>
