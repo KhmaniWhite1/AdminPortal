@@ -63,4 +63,22 @@ async function removeStudent(studentId) {
 
 // Function to mark attendance (Present/Absent)
 async function markAttendance(studentId, status) {
-    const currentDate = new Date().toISOString().
+    const currentDate = new Date().toISOString().split("T")[0]; // Get today's date
+    const response = await fetch("http://127.0.0.1:5000/mark_attendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: studentId, status, date: currentDate })
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+        alert(result.message);
+    } else {
+        alert(`Failed to mark attendance: ${result.error}`);
+    }
+}
+
+// Load data on page load
+window.onload = function() {
+    loadStudents();         // Load student list
+};
