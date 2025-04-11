@@ -1,74 +1,78 @@
-/* General Styles */
 body {
-    font-family: "Segoe UI", sans-serif;
-    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.navbar {
+    background-color: #333;
+    overflow: hidden;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+    padding: 10px 0;
 }
 
-/* Container Styles */
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    display: inline-block;
+}
+
+.navbar a:hover, .navbar a.active {
+    background-color: #575757;
+    color: white;
+}
+
 .container {
-    width: 100%;
-    max-width: 400px;
-    padding: 30px;
-    background-color: white;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
+    max-width: 500px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
     text-align: center;
-}
-
-/* Heading Styles */
-h2 {
     color: #333;
-    margin-bottom: 20px;
 }
 
-/* Input Field Styles */
+label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
 input {
     width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
-    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
-/* Button Styles */
-.btn {
+button {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    background: linear-gradient(135deg, #0078D4, #005A9E);
+    padding: 10px;
+    background-color: #007BFF;
     color: white;
-    font-size: 16px;
-    font-weight: bold;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.btn:hover {
-    background: linear-gradient(135deg, #005A9E, #003E75);
+button:hover {
+    background-color: #0056b3;
 }
 
-/* Subtext & Links */
-.subtext {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #666;
-}
-
-.link {
-    color: #0078D4;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.link:hover {
-    text-decoration: underline;
+.footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
