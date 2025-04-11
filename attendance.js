@@ -51,21 +51,3 @@ async function markAttendance(studentId, status) {
 
 // Function to load calendar statistics
 async function loadCalendarStats() {
-    const response = await fetch("http://127.0.0.1:5000/get_attendance_stats");
-    const stats = await response.json();
-
-    const calendarEl = document.getElementById("calendar");
-    calendarEl.innerHTML = "<h4>Attendance Statistics:</h4>";
-
-    stats.forEach(stat => {
-        const statItem = document.createElement("p");
-        statItem.innerText = `Date: ${stat.date}, Present: ${stat.present}, Absent: ${stat.absent}`;
-        calendarEl.appendChild(statItem);
-    });
-}
-
-// Load data on page load
-window.onload = function() {
-    loadStudents();         // Load student list
-    loadCalendarStats();    // Load calendar statistics
-};
