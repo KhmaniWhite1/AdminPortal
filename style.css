@@ -1,78 +1,96 @@
+/* General Body Styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f5f5f5;
-}
-
-.navbar {
-    background-color: #333;
-    overflow: hidden;
+    background: linear-gradient(to right, #4facfe, #00f2fe); /* Fancy gradient background */
     display: flex;
     justify-content: center;
-    padding: 10px 0;
+    align-items: center;
+    height: 100vh;
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 14px 20px;
-    display: inline-block;
-}
-
-.navbar a:hover, .navbar a.active {
-    background-color: #575757;
-    color: white;
-}
-
+/* Center the Content */
 .container {
-    max-width: 500px;
-    margin: 40px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Add a shadow for elevation effect */
+    max-width: 400px;
+    width: 100%;
+    text-align: center; /* Center the text content */
 }
 
+/* Headings */
 h1, h2 {
-    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
     color: #333;
 }
 
+/* Labels */
 label {
+    font-size: 1rem;
     display: block;
-    margin: 10px 0 5px;
+    margin-bottom: 8px;
+    color: #555;
     font-weight: bold;
 }
 
+/* Input Fields */
 input {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+input:focus {
+    background-color: #fff;
+    box-shadow: 0 0 5px #007BFF;
+    outline: none;
+}
+
+/* Buttons */
 button {
     width: 100%;
     padding: 10px;
-    background-color: #007BFF;
+    font-size: 1rem;
     color: white;
+    background-color: #007BFF;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 button:hover {
     background-color: #0056b3;
+    transform: scale(1.05); /* Subtle zoom effect on hover */
 }
 
+button:active {
+    transform: scale(0.98); /* Slight press effect */
+}
+
+/* Links */
+a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
 .footer {
-    text-align: center;
-    padding: 10px 0;
-    background-color: #333;
-    color: white;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #333;
 }
