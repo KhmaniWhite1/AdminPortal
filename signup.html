@@ -2,58 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Signup</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h2>Sign Up</h2>
-        <form id="signUpForm">
-            <input type="text" id="regName" placeholder="Enter Name" required>
-            <input type="password" id="regPassword" placeholder="Enter Password" required>
-            <button type="submit" class="btn">Create Account</button>
+        <h1>Admin Signup</h1>
+        <form id="signup-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Signup</button>
         </form>
-        <p class="subtext">Already have an account? <a href="login.html" class="link">Login Here</a></p>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
     </div>
 
     <script>
-        document.getElementById("signUpForm").addEventListener("submit", async function(event) {
-            event.preventDefault();
+        const signupForm = document.getElementById('signup-form');
+        signupForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent form refresh
 
-            const name = document.getElementById("regName").value.trim();
-            const password = document.getElementById("regPassword").value.trim();
-
-            // Validate input
-            if (!name || name.length < 3) {
-                alert("❌ Name must be at least 3 characters.");
-                return;
-            }
-            if (!password || password.length < 6) {
-                alert("❌ Password must be at least 6 characters.");
-                return;
-            }
-
-            // Generate a random 6-digit ID
-            const user_id = Math.floor(100000 + Math.random() * 900000);
+            // Get values from form inputs
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
             try {
-                const response = await fetch("http://127.0.0.1:5000/signup", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user_id, name, password })
+                const response = await fetch('http://127.0.0.1:5000/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
                 });
 
+                const result = await response.json();
                 if (response.ok) {
-                    const result = await response.json();
-                    alert(`✅ Signup successful! Your ID: ${result.user_id}`);
-                    window.location.href = "login.html"; // Redirect after success
+                    alert(result.message); // Notify success
                 } else {
-                    const errorResult = await response.json();
-                    alert(errorResult.error || "❌ Signup failed.");
+                    alert(result.error); // Notify error
                 }
             } catch (error) {
-                console.error("Signup Error:", error);
-                alert("❌ Failed to communicate with the server.");
+                console.error('Signup Error:', error);
+                alert('An error occurred during signup.');
             }
         });
     </script>
