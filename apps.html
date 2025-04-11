@@ -2,16 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Apps</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Apps Dashboard</title>
+    <style>
+        body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; margin: 0; padding: 0; }
+        .container { padding: 20px; }
+        ul { padding: 0; }
+        .app-list li { list-style: none; margin: 10px 0; }
+        .app-link { text-decoration: none; font-size: 18px; color: blue; }
+        .btn-logout { background-color: darkred; color: white; padding: 8px 15px; font-size: 16px; border-radius: 5px; }
+        .btn-add-app { background-color: green; color: white; padding: 8px 15px; font-size: 16px; border-radius: 5px; }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Apps Page</h2>
-        <p class="subtext">Click below to access the Attendance Tracker.</p>
+        <h2>Apps Dashboard</h2>
 
-        <!-- Attendance Tracker Link -->
-        <a href="attendance.html" class="btn">Go to Attendance Tracker</a>
+        <!-- Logout Button -->
+        <button class="btn-logout" onclick="confirmLogout()">Logout</button>
+
+        <h4>Available Apps</h4>
+        <button class="btn-add-app" onclick="addNewApp()">Add New App</button>
+        <ul id="appList" class="app-list"></ul> <!-- Dynamic App List -->
     </div>
+
+    <script src="apps.js"></script>
 </body>
 </html>
