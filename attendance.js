@@ -12,7 +12,7 @@ async function loadStudents() {
             <div>
                 <button class="btn-present" onclick="markAttendance('${student.id}', 'Present')">Present</button>
                 <button class="btn-absent" onclick="markAttendance('${student.id}', 'Absent')">Absent</button>
-                <button class="btn-remove" onclick="removeStudent('${student.id}')">Remove</button>
+                <button class="btn-remove" onclick="removeStudentByName('${student.name}')">Remove</button>
             </div>
         `;
         studentList.appendChild(listItem);
@@ -41,22 +41,33 @@ async function addNewStudent() {
     }
 }
 
-// Function to remove a student
-async function removeStudent(studentId) {
-    const confirmRemove = confirm("Are you sure you want to remove this student?");
+// Function to remove a student by name
+async function removeStudentByName(studentName) {
+    const confirmRemove = confirm(`Are you sure you want to remove ${studentName}?`);
     if (confirmRemove) {
-        const response = await fetch("http://127.0.0.1:5000/remove_student", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: studentId })
-        });
+        // Fetch the current student list to find the student ID
+        const response = await fetch("http://127.0.0.1:5000/get_students");
+        const students = await response.json();
 
-        const result = await response.json();
-        if (response.ok) {
-            alert(result.message);
-            loadStudents(); // Refresh student list dynamically
+        // Find the student with the matching name
+        const student = students.find(s => s.name === studentName);
+        if (student) {
+            // Send request to the backend to remove the student
+            const removeResponse = await fetch("http://127.0.0.1:5000/remove_student", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: student.id })
+            });
+
+            const result = await removeResponse.json();
+            if (removeResponse.ok) {
+                alert(result.message);
+                loadStudents(); // Refresh student list dynamically
+            } else {
+                alert(`Failed to remove student: ${result.error}`);
+            }
         } else {
-            alert(`Failed to remove student: ${result.error}`);
+            alert("Student not found.");
         }
     }
 }
