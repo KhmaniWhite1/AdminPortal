@@ -2,23 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>Admin Login</h1>
-        
-        <!-- Login Form -->
-        <form action="login_handler.html" method="post">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit" class="btn">Login</button>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
         </form>
-
-        <!-- Signup Button -->
-        <p>Don't have an account?</p>
-        <a href="signup.html" class="btn">Signup</a>
+        <p>Don't have an account? <a href="signup.html">Signup here</a></p>
     </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // Prevent form refresh
+
+            // Get values from form inputs
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://127.0.0.1:5000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message); // Notify success
+                } else {
+                    alert(result.error); // Notify error
+                }
+            } catch (error) {
+                console.error('Login Error:', error);
+                alert('An error occurred during login.');
+            }
+        });
+    </script>
 </body>
 </html>
