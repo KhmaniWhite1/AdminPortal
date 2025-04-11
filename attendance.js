@@ -1,32 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Attendance Tracker</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/fullcalendar.min.css" rel="stylesheet">
-    <style>
-        body { font-family: "Segoe UI", sans-serif; text-align: center; background-color: #f4f4f4; padding: 0; margin: 0; }
-        h2, h4 { margin: 20px; }
-        ul { padding: 0; }
-        .student-list li { list-style: none; margin: 10px 0; background: #ffffff; padding: 10px; border-radius: 5px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
-        button { padding: 5px 10px; margin-left: 5px; border: none; border-radius: 4px; cursor: pointer; }
-        .btn-present { background-color: green; color: white; }
-        .btn-absent { background-color: red; color: white; }
-        .calendar { margin: 20px auto; width: 80%; background: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Attendance Tracker</h2>
+// Dummy Student Data (You can replace this with data from the backend)
+const students = [
+    { id: "123", name: "Alice" },
+    { id: "456", name: "Bob" },
+    { id: "789", name: "Charlie" }
+];
 
-        <h4>Student List</h4>
-        <ul id="studentList" class="student-list"></ul>
+// Attendance Data (For storing Present/Absent status)
+const attendance = {};
 
-        <h4>Attendance Calendar</h4>
-        <div id="calendar"></div>
-    </div>
+// Function to load the student list dynamically
+async function loadStudents() {
+    const response = await fetch("http://127.0.0.1:5000/get_students");
+    const students = await response.json();
+    const studentList = document.getElementById("studentList");
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/6.1.8/fullcalendar.min.js"></script>
-    <script src="attendance.js"></script> <!-- Link to external JS file -->
-</body>
-</html>
+    studentList.innerHTML = ""; // Clear existing list
+    students.forEach(student => {
+        const listItem = document.createElement("li");
+        listItem.innerHTML = `
+            ${student.name}
+            <div>
+                <button class="btn-present" onclick="markAttendance('${student.id}', 'Present')">Present</button>
+                <button class="btn-absent" onclick="markAttendance('${student.id}', 'Absent')">Absent</button>
+            </div>
+        `;
+        studentList.appendChild(listItem);
+    });
+}
+
+// Function to add a new student
+async function addNewStudent() {
+    const studentName = prompt("Enter the new student's name:");
+    if (studentName) {
+        const response = await fetch("http://127.0.0.1:5000/add_student", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: studentName })
+        });
+
+        const result = await response.json();
+        alert(result.message);
+        loadStudents();
+    } else {
+        alert("No student name entered. Operation cancelled.");
+    }
+}
+
+// Function to mark attendance (Present/Absent)
+async function markAttendance(studentId, status) {
+    const currentDate = new Date().toISOString().split("T")[0]; // Get today's date
+    await fetch("http://127.0.0.1:5000/mark_attendance", {
+        method: "POST",
+        headers:
