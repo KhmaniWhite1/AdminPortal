@@ -10,6 +10,7 @@
         .btn { padding: 8px 15px; font-size: 16px; border-radius: 5px; cursor: pointer; margin: 5px; }
         .btn-save { background-color: green; color: white; }
         .btn-delete { background-color: red; color: white; }
+        .btn-back { background-color: orange; color: white; }
         .btn-logout { background-color: darkred; color: white; }
         .note-list { text-align: left; margin-top: 20px; }
     </style>
@@ -18,7 +19,8 @@
     <div class="container">
         <h2>Notes</h2>
 
-        <!-- Logout Button -->
+        <!-- Navigation Buttons -->
+        <button class="btn-back" onclick="goBack()">Back to Apps</button>
         <button class="btn-logout" onclick="confirmLogout()">Logout</button>
 
         <textarea id="noteInput" placeholder="Write your note here..."></textarea>
@@ -28,6 +30,7 @@
         <ul id="noteList" class="note-list"></ul>
     </div>
 
+    <script src="common.js"></script>
     <script src="notes.js"></script>
 </body>
 </html>
