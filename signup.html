@@ -7,60 +7,24 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <nav class="navbar">
         <a href="index.html">Home</a>
         <a href="signup.html" class="active">Signup</a>
         <a href="login.html">Login</a>
     </nav>
-
-    <!-- Signup Form Section -->
     <div class="container">
-        <h1>Admin Signup</h1>
-        <form id="signup-form" class="form-style">
+        <h2>Admin Signup</h2>
+        <form id="signup-form">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" placeholder="Enter your username" required>
-            
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            
             <button type="submit" class="btn">Signup</button>
         </form>
         <p>Already have an account? <a href="login.html">Login here</a></p>
     </div>
-
-    <!-- Footer -->
     <footer class="footer">
         <p>&copy; 2025 Admin Portal</p>
     </footer>
-
-    <!-- JavaScript -->
-    <script>
-        const signupForm = document.getElementById('signup-form');
-        signupForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch('http://127.0.0.1:5000/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const result = await response.json();
-                if (response.ok) {
-                    alert(result.message);
-                } else {
-                    alert(result.error);
-                }
-            } catch (error) {
-                console.error('Signup Error:', error);
-                alert('An error occurred during signup.');
-            }
-        });
-    </script>
 </body>
 </html>
