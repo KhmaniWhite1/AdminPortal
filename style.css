@@ -3,10 +3,11 @@ body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to right, #4facfe, #00f2fe); /* Modern gradient background */
+    background: linear-gradient(to right, #4facfe, #00f2fe);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     min-height: 100vh;
 }
 
@@ -26,9 +27,9 @@ body {
     color: white;
     text-decoration: none;
     padding: 12px 24px;
-    transition: background-color 0.3s;
     border-radius: 5px;
     font-weight: bold;
+    transition: background-color 0.3s;
 }
 
 .navbar a:hover, .navbar a.active {
@@ -39,33 +40,12 @@ body {
 .container {
     background-color: white;
     border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Soft shadow for depth */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     padding: 30px;
-    width: 90%;
     max-width: 500px;
+    width: 90%;
     text-align: center;
     margin-top: 80px;
-}
-
-/* Headings */
-h1, h2, h3, h4 {
-    color: #333;
-    margin-bottom: 20px;
-}
-
-/* Lists */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-/* List Items */
-li {
-    background-color: #f9f9f9;
-    margin: 10px 0;
-    padding: 12px;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Forms */
@@ -83,12 +63,10 @@ input {
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 1rem;
-    background-color: #f9f9f9;
     transition: box-shadow 0.3s;
 }
 
 input:focus {
-    background-color: white;
     box-shadow: 0 0 5px #007BFF;
     outline: none;
 }
@@ -113,22 +91,6 @@ button:hover, .btn:hover {
 
 button:active, .btn:active {
     transform: scale(0.95);
-}
-
-/* Special Button Styles */
-.btn-primary {
-    background-color: #007bff;
-    color: white;
-}
-
-.btn-danger {
-    background-color: red;
-    color: white;
-}
-
-.btn-success {
-    background-color: green;
-    color: white;
 }
 
 /* Footer */
